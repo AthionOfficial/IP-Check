@@ -72,32 +72,21 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
-						<configuration>
-							<artifactSet>
-								<includes>
-									<include>com.maxmind.geoip:geoip-api</include>
-								</includes>
-								<excludes>
-									<exclude>org.bukkit:*</exclude>
-									<exclude>com.mchange:c3p0</exclude>
-								</excludes>
-							</artifactSet>
-							<minimizeJar>true</minimizeJar>
-						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
 				<configuration>
-					<archive>
-						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
-					</archive>
+					<artifactSet>
+						<includes>
+							<include>com.maxmind.geoip:geoip-api</include>
+						</includes>
+						<excludes>
+							<exclude>org.bukkit:*</exclude>
+							<exclude>com.mchange:c3p0</exclude>
+						</excludes>
+					</artifactSet>
+					<finalName>IP-Check-${version}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
