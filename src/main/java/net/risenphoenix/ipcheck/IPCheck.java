@@ -31,6 +31,7 @@
 package net.risenphoenix.ipcheck;
 
 import net.risenphoenix.commons.Plugin;
+import net.risenphoenix.commons.configuration.ConfigurationOption;
 import net.risenphoenix.ipcheck.commands.block.BlockManager;
 import net.risenphoenix.ipcheck.database.DatabaseController;
 import net.risenphoenix.ipcheck.events.PlayerLoginListener;
@@ -101,7 +102,7 @@ public class IPCheck extends Plugin implements Listener {
 
         // Initialize Configuration
         this.config = new ConfigStore(this);
-        this.getConfigurationManager().initializeConfigurationStore(config);
+        this.getConfigurationManager().initializeConfiguration(config);
 
         // Initialize Default Localization
         LocaleStore locStore = new LocaleStore(this);
@@ -156,9 +157,6 @@ public class IPCheck extends Plugin implements Listener {
                             .getLocalString("METRICS_ERR"));
                 }
             }
-        } else {
-            sendConsoleMessage(Level.INFO, getLocalizationManager()
-                    .getLocalString("DEV_BUILD_WARN"));
         }
 
         // Display Random Message
