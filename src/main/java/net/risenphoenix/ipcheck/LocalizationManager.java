@@ -1,8 +1,9 @@
 package net.risenphoenix.ipcheck;
 
-import net.risenphoenix.commons.stores.LocalizationStore;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import net.risenphoenix.ipcheck.stores.LocalizationStore;
 
 import java.io.File;
 import java.util.HashMap;

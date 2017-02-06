@@ -30,12 +30,11 @@
 
 package net.risenphoenix.ipcheck.stores;
 
-import net.risenphoenix.commons.Plugin;
-import net.risenphoenix.commons.stores.LocalizationStore;
+import net.risenphoenix.ipcheck.IPCheck;
 
 public class LocaleStore extends LocalizationStore {
 
-    public LocaleStore(final Plugin plugin) {
+    public LocaleStore(final IPCheck plugin) {
         super(plugin);
     }
     

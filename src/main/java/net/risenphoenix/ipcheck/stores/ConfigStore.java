@@ -30,13 +30,13 @@
 
 package net.risenphoenix.ipcheck.stores;
 
-import net.risenphoenix.commons.Plugin;
 import net.risenphoenix.commons.configuration.ConfigurationOption;
 import net.risenphoenix.commons.configuration.ConfigurationOption.ConfigOptionType;
+import net.risenphoenix.ipcheck.IPCheck;
 
 public class ConfigStore extends ConfigurationStore {
 
-    public ConfigStore(final Plugin plugin) {
+    public ConfigStore(final IPCheck plugin) {
         super(plugin);
     }
 
