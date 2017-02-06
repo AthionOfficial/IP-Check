@@ -17,8 +17,7 @@ public class CmdCheck extends Command {
         this.setPermissions(new Permission[]{new Permission("ipcheck.use")});
     }
 
-    @Override
-    public void onExecute(CommandSender sender, String[] args) {
+    public static void cmd(CommandSender sender, String[] args) {
         new ReportObject(IPCheck.getInstance()).onExecute(sender, args[0]);
     }
 

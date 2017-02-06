@@ -14,13 +14,13 @@ import java.util.ArrayList;
 public class CmdToggle extends Command {
 
     private FileConfiguration config;
-    private ArrayList<ToggleOption> options;
+    private static ArrayList<ToggleOption> options;
 
     public CmdToggle(final IPCheck plugin, String[] callArgs, CommandType type) {
         super(plugin, callArgs, type);
 
         this.config = getPlugin().getConfig();
-        this.options = new ArrayList<ToggleOption>();
+        CmdToggle.options = new ArrayList<ToggleOption>();
 
         /* Options Initialization */
 
@@ -68,12 +68,11 @@ public class CmdToggle extends Command {
                 new Permission("ipcheck.toggle")});
     }
 
-    @Override
-    public void onExecute(CommandSender sender, String[] args) {
+    public static void cmd(CommandSender sender, String[] args, IPCheck plugin) {
         ToggleOption option = null;
 
         // Obtain Applicable ToggleOption
-        for (ToggleOption to : this.options) {
+        for (ToggleOption to : CmdToggle.options) {
             String[] callValues = to.getCallValues();
 
             for (int i = 0; i < callValues.length; i++) {
@@ -88,10 +87,10 @@ public class CmdToggle extends Command {
 
         // Help Argument Output
         if (args[1].equalsIgnoreCase("help")) {
-            sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                    "---------------------------------------------", false);
+        	sender.sendMessage(ChatColor.DARK_GRAY +
+                    "---------------------------------------------");
 
-            for (ToggleOption to : this.options) {
+            for (ToggleOption to : CmdToggle.options) {
                 StringBuilder sb = new StringBuilder();
                 String[] callValues = to.getCallValues();
 
@@ -104,17 +103,17 @@ public class CmdToggle extends Command {
                 }
 
                 sb.append(ChatColor.YELLOW + ">");
-                sendPlayerMessage(sender, sb.toString(), false);
+                sender.sendMessage(sb.toString());
             }
 
-            sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                    "---------------------------------------------", false);
+            sender.sendMessage(ChatColor.DARK_GRAY +
+                    "---------------------------------------------");
             return;
         }
 
         // If the ToggleOption is null, return
         if (option == null) {
-            sendPlayerMessage(sender, getLocalString("TOGGLE_INVALID"));
+        	sender.sendMessage(plugin.getLocalizationManager().getLocalString("TOGGLE_INVALID"));
             return;
         }
 
@@ -123,7 +122,7 @@ public class CmdToggle extends Command {
         ChatColor color = (newValue) ? ChatColor.GREEN : ChatColor.RED;
 
         // Output Result
-        sendPlayerMessage(sender, option.getDisplayID() + " set to: " + color +
+        sender.sendMessage(option.getDisplayID() + " set to: " + color +
                 newValue);
     }
 }

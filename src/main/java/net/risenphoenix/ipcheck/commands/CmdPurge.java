@@ -8,12 +8,12 @@ import org.bukkit.permissions.Permission;
 
 public class CmdPurge extends Command {
 
-    private DatabaseController db;
+    private static DatabaseController db;
 
     public CmdPurge(final IPCheck plugin, String[] callArgs, CommandType type) {
         super(plugin, callArgs, type);
 
-        this.db = IPCheck.getInstance().getDatabaseController();
+        CmdPurge.db = IPCheck.getInstance().getDatabaseController();
 
         setName(getLocalString("CMD_PURGE"));
         setHelp(getLocalString("HELP_PURGE"));
@@ -24,8 +24,7 @@ public class CmdPurge extends Command {
         });
     }
 
-    @Override
-    public void onExecute(CommandSender sender, String[] args) {
+    public static void cmd(CommandSender sender, String[] args, IPCheck plugin) {
         // Regex for differentiating between IP and username
         String ip_filter = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
 
@@ -34,11 +33,11 @@ public class CmdPurge extends Command {
             if (db.isValidIP(args[1])) {
                 // Purge the IP and send success message.
                 db.purgeIP(args[1]);
-                sendPlayerMessage(sender, String.format(
-                        getLocalString("PURGE_SUC"), args[1]));
+                sender.sendMessage(String.format(
+                        plugin.getLocalizationManager().getLocalString("PURGE_SUC"), args[1]));
             } else {
                 // Report if the IP was not found in the database.
-                sendPlayerMessage(sender, getLocalString("NO_FIND"));
+            	sender.sendMessage(plugin.getLocalizationManager().getLocalString("NO_FIND"));
             }
 
         // If the argument is a Player, validate it
@@ -46,11 +45,11 @@ public class CmdPurge extends Command {
             if (db.isValidPlayer(args[1])) {
                 // Purge the player and send success message.
                 db.purgePlayer(args[1]);
-                sendPlayerMessage(sender, String.format(
-                        getLocalString("PURGE_SUC"), args[1]));
+                sender.sendMessage(String.format(
+                        plugin.getLocalizationManager().getLocalString("PURGE_SUC"), args[1]));
             } else {
                 // Report if the Player was not found in the database.
-                sendPlayerMessage(sender, getLocalString("NO_FIND"));
+            	sender.sendMessage(plugin.getLocalizationManager().getLocalString("NO_FIND"));
             }
         }
     }

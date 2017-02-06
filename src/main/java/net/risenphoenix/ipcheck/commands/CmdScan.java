@@ -14,13 +14,10 @@ import java.util.ArrayList;
 
 public class CmdScan extends Command {
 
-    private IPCheck ipc;
-
     public CmdScan(final IPCheck plugin, String[] callArgs, CommandType type) {
         super(plugin, callArgs, type);
 
         // Initialize IPC variable
-        this.ipc = IPCheck.getInstance();
 
         setName(this.getLocalString("CMD_SCAN"));
         setHelp(this.getLocalString("HELP_SCAN"));
@@ -29,10 +26,9 @@ public class CmdScan extends Command {
                 new Permission("ipcheck.scan")});
     }
 
-    @Override
-    public void onExecute(CommandSender sender, String[] args) {
+    public static void cmd(CommandSender sender, String[] args, IPCheck plugin) {
         // Method Variables
-        Player[] online = ipc.getOnlinePlayers();
+        Player[] online = plugin.getOnlinePlayers();
         ArrayList<Player> detected = new ArrayList<Player>();
 
         // Loop through online players
@@ -41,7 +37,7 @@ public class CmdScan extends Command {
             ArrayList<String> unique_names = new ArrayList<String>();
 
             // Fetch User Object for this player
-            UserObject user = ipc.getDatabaseController()
+            UserObject user = plugin.getDatabaseController()
                     .getUserObject(p.getName());
 
             // If no IPs were found for this user, skip them and continue
@@ -51,7 +47,7 @@ public class CmdScan extends Command {
             ArrayList<IPObject> ipos = new ArrayList<IPObject>();
 
             for (String ip : user.getIPs()) {
-                ipos.add(ipc.getDatabaseController().getIPObject(ip));
+                ipos.add(plugin.getDatabaseController().getIPObject(ip));
             }
 
             // Get Unique Accounts from IP Objects
@@ -86,22 +82,22 @@ public class CmdScan extends Command {
             for (Player p : detected) convert.add(p.getName());
 
             // Output Header
-            this.sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                    "------------------------------------------------", false);
-            this.sendPlayerMessage(sender, ChatColor.RED +
-                    this.getLocalString("SCAN_TITLE"));
-            this.sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                    "------------------------------------------------", false);
+            sender.sendMessage(ChatColor.DARK_GRAY +
+                    "------------------------------------------------");
+            sender.sendMessage(ChatColor.RED +
+                    plugin.getLocalizationManager().getLocalString("SCAN_TITLE"));
+            sender.sendMessage(ChatColor.DARK_GRAY +
+                    "------------------------------------------------");
 
             // Fetch Formatted List
             StringBuilder list = new ListFormatter(convert).getFormattedList();
 
             // Display Results
-            this.sendPlayerMessage(sender, list.toString(), false);
-            this.sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                    "------------------------------------------------", false);
+            sender.sendMessage(list.toString());
+            sender.sendMessage(ChatColor.DARK_GRAY +
+                    "------------------------------------------------");
         } else {
-            this.sendPlayerMessage(sender, this.getLocalString("SCAN_CLEAN"));
+        	sender.sendMessage(plugin.getLocalizationManager().getLocalString("SCAN_CLEAN"));
         }
     }
 }

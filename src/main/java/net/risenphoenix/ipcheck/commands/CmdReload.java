@@ -18,11 +18,10 @@ public class CmdReload extends Command {
                 new Permission("ipcheck.reload")});
     }
 
-    @Override
-    public void onExecute(CommandSender sender, String[] args) {
-        getPlugin().onDisable();
-        getPlugin().onEnable();
-        sendPlayerMessage(sender, getLocalString("RELOAD"));
+    public static void cmd(CommandSender sender, String[] args, IPCheck plugin) {
+        plugin.onDisable();
+        plugin.onEnable();
+        sender.sendMessage(plugin.getLocalizationManager().getLocalString("RELOAD"));
     }
 
 }

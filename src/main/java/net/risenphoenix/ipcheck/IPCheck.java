@@ -1,5 +1,6 @@
 package net.risenphoenix.ipcheck;
 
+import net.risenphoenix.ipcheck.commands.Cmd;
 import net.risenphoenix.ipcheck.commands.CommandManager;
 import net.risenphoenix.ipcheck.commands.block.BlockManager;
 import net.risenphoenix.ipcheck.database.DatabaseController;
@@ -67,6 +68,8 @@ public class IPCheck extends JavaPlugin implements Listener {
             getServer().getPluginManager().registerEvents(this, this);
             this.hasRegistered = true; // Prevents Re-registration with Bukkit
         }
+        
+        this.getCommand("ipc").setExecutor(new Cmd(this));
 
         this.LM = new LocalizationManager(this, this.getConfig().getString("language"));
         

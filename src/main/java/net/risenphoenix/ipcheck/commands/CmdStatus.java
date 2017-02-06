@@ -9,136 +9,135 @@ import org.bukkit.permissions.Permission;
 
 public class CmdStatus extends Command {
 
-    public CmdStatus(final IPCheck plugin, String[] callArgs, CommandType type) {
-        super(plugin, callArgs, type);
+	public CmdStatus(final IPCheck plugin, String[] callArgs, CommandType type) {
+		super(plugin, callArgs, type);
 
-        setName(getLocalString("CMD_STATUS"));
-        setHelp(getLocalString("HELP_STATUS"));
-        setSyntax("ipc status");
-        setPermissions(new Permission[]{new Permission("ipcheck.use")});
-    }
+		setName(getLocalString("CMD_STATUS"));
+		setHelp(getLocalString("HELP_STATUS"));
+		setSyntax("ipc status");
+		setPermissions(new Permission[]{new Permission("ipcheck.use")});
+	}
 
-    @Override
-    public void onExecute(CommandSender sender, String[] args) {
-        // Stats Object
-        StatsObject stats = IPCheck.getInstance().getStatisticsObject();
+	public static void cmd(CommandSender sender, String[] args, IPCheck plugin) {
+		// Stats Object
+		StatsObject stats = IPCheck.getInstance().getStatisticsObject();
 
-        // Border
-        getPlugin().sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                "------------------------------------------------", false);
+		// Border
+		sender.sendMessage(ChatColor.DARK_GRAY +
+				"------------------------------------------------");
 
-        sendPlayerMessage(sender, getLocalString("STATS_HEADER"));
+		sender.sendMessage(plugin.getLocalizationManager().getLocalString("STATS_HEADER"));
 
-        // Border
-        getPlugin().sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                "------------------------------------------------", false);
+		// Border
+		sender.sendMessage(ChatColor.DARK_GRAY +
+				"------------------------------------------------");
 
-        // IPC Ver.
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_PVER") + ChatColor.YELLOW +
-                stats.getPluginVersion(), false);
+		// IPC Ver.
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_PVER") + ChatColor.YELLOW +
+				stats.getPluginVersion());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_LVER") + ChatColor.YELLOW +
-                stats.getPluginVersion(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_LVER") + ChatColor.YELLOW +
+				stats.getPluginVersion());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_DB_TYPE") + ChatColor.YELLOW +
-                stats.getDatabaseType(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_DB_TYPE") + ChatColor.YELLOW +
+				stats.getDatabaseType());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_JVER") + ChatColor.YELLOW +
-                stats.getJavaVersion(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_JVER") + ChatColor.YELLOW +
+				stats.getJavaVersion());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_OS") + ChatColor.YELLOW +
-                stats.getOperatingSystem(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_OS") + ChatColor.YELLOW +
+				stats.getOperatingSystem());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_OS_ARCH") + ChatColor.YELLOW +
-                stats.getOperatingSystemArch(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_OS_ARCH") + ChatColor.YELLOW +
+				stats.getOperatingSystemArch());
 
-        // Border
-        getPlugin().sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                "------------------------------------------------", false);
+		// Border
+		sender.sendMessage(ChatColor.DARK_GRAY +
+				"------------------------------------------------");
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_PLOG") + ChatColor.YELLOW +
-                stats.getPlayersLogged(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_PLOG") + ChatColor.YELLOW +
+				stats.getPlayersLogged());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_ILOG") + ChatColor.YELLOW +
-                stats.getIPsLogged(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_ILOG") + ChatColor.YELLOW +
+				stats.getIPsLogged());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_PEXM") + ChatColor.YELLOW +
-                stats.getPlayersExempt(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_PEXM") + ChatColor.YELLOW +
+				stats.getPlayersExempt());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_IEXM") + ChatColor.YELLOW +
-                stats.getIPsExempt(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_IEXM") + ChatColor.YELLOW +
+				stats.getIPsExempt());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_RPEXM") + ChatColor.YELLOW +
-                stats.getPlayersRejoinExempt(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_RPEXM") + ChatColor.YELLOW +
+				stats.getPlayersRejoinExempt());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_RIEXM") + ChatColor.YELLOW +
-                stats.getIPsRejoinExempt(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_RIEXM") + ChatColor.YELLOW +
+				stats.getIPsRejoinExempt());
 
-        // Border
-        getPlugin().sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                "------------------------------------------------", false);
+		// Border
+		sender.sendMessage(ChatColor.DARK_GRAY +
+				"------------------------------------------------");
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_PBAN") + ChatColor.YELLOW +
-                stats.getPlayersBanned(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_PBAN") + ChatColor.YELLOW +
+				stats.getPlayersBanned());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_IBAN") + ChatColor.YELLOW +
-                stats.getIPsBanned(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_IBAN") + ChatColor.YELLOW +
+				stats.getIPsBanned());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_PLOGS") + ChatColor.YELLOW +
-                stats.getLogPlayerSession(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_PLOGS") + ChatColor.YELLOW +
+				stats.getLogPlayerSession());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_PBANS") + ChatColor.YELLOW +
-                stats.getBannedPlayerSession(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_PBANS") + ChatColor.YELLOW +
+				stats.getBannedPlayerSession());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_PUNBANS") + ChatColor.YELLOW +
-                stats.getUnbannedPlayerSession(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_PUNBANS") + ChatColor.YELLOW +
+				stats.getUnbannedPlayerSession());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_WARNS") + ChatColor.YELLOW +
-                stats.getWarningIssuedSession(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_WARNS") + ChatColor.YELLOW +
+				stats.getWarningIssuedSession());
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_KICKS") + ChatColor.YELLOW +
-                stats.getKickIssuedSession(), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_KICKS") + ChatColor.YELLOW +
+				stats.getKickIssuedSession());
 
-        // Border
-        getPlugin().sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                "------------------------------------------------", false);
+		// Border
+		sender.sendMessage(ChatColor.DARK_GRAY +
+				"------------------------------------------------");
 
-        String isTrue = ChatColor.GREEN + "True",
-               isFalse = ChatColor.RED + "False";
+		String isTrue = ChatColor.GREEN + "True",
+				isFalse = ChatColor.RED + "False";
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_SECURE") + ChatColor.YELLOW +
-                ((stats.getSecureStatus()) ? isTrue : isFalse), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_SECURE") + ChatColor.YELLOW +
+				((stats.getSecureStatus()) ? isTrue : isFalse));
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_ACTIVE") + ChatColor.YELLOW +
-                ((stats.getActiveStatus()) ? isTrue : isFalse), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_ACTIVE") + ChatColor.YELLOW +
+				((stats.getActiveStatus()) ? isTrue : isFalse));
 
-        sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                getLocalString("STATS_BLACKLIST") + ChatColor.YELLOW +
-                ((stats.getBlackListStatus()) ? isTrue : isFalse), false);
+		sender.sendMessage(ChatColor.LIGHT_PURPLE +
+				plugin.getLocalizationManager().getLocalString("STATS_BLACKLIST") + ChatColor.YELLOW +
+				((stats.getBlackListStatus()) ? isTrue : isFalse));
 
-        // Border
-        getPlugin().sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                "------------------------------------------------", false);
-    }
+		// Border
+		sender.sendMessage(ChatColor.DARK_GRAY +
+				"------------------------------------------------");
+	}
 }
