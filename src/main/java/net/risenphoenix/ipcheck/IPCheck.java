@@ -8,6 +8,7 @@ import net.risenphoenix.ipcheck.events.PlayerLoginListener;
 import net.risenphoenix.ipcheck.objects.GeoIPObject;
 import net.risenphoenix.ipcheck.objects.StatsObject;
 import net.risenphoenix.ipcheck.stores.CmdStore;
+import net.risenphoenix.ipcheck.stores.LocaleStore;
 import net.risenphoenix.ipcheck.util.DateStamp;
 import net.risenphoenix.ipcheck.util.Messages;
 import net.risenphoenix.ipcheck.util.Metrics;
@@ -27,182 +28,185 @@ import java.util.Collection;
 
 public class IPCheck extends JavaPlugin implements Listener {
 
-    private CommandManager CM;
-    private LocalizationManager LM;
-	
-    // Instance and Main System Objects
-    private static IPCheck instance;
-    private DatabaseController dbController;
+	private CommandManager CM;
+	private LocalizationManager LM;
 
-    // Updater and Metrics Objects
-    private Updater updater;
-    private Metrics metrics;
+	// Instance and Main System Objects
+	private static IPCheck instance;
+	private DatabaseController dbController;
 
-    // Statistics Object
-    private StatsObject statsObject;
+	// Updater and Metrics Objects
+	private Updater updater;
+	private Metrics metrics;
 
-    // GeoIP Service Objects
-    private GeoIPObject geoIPOBject = null;
-    private BlockManager blockManager = null;
+	// Statistics Object
+	private StatsObject statsObject;
 
-    
-    // Control used mainly in the event of an in-plugin Reload.
-    private boolean hasRegistered = false;
+	// GeoIP Service Objects
+	private GeoIPObject geoIPOBject = null;
+	private BlockManager blockManager = null;
 
-    // Used for Development Purposes Only (hard disable for automatic updater)
-    private boolean isDevBuild = true;
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerLogin(PlayerLoginEvent e) {
-        new PlayerLoginListener(this, e);
-    }
+	// Control used mainly in the event of an in-plugin Reload.
+	private boolean hasRegistered = false;
 
-    @Override
-    public void onEnable() {
-        
-        // Initialize Configuration
-        this.saveDefaultConfig();
-    	
-        this.CM = new CommandManager(this);
+	// Used for Development Purposes Only (hard disable for automatic updater)
+	private boolean isDevBuild = true;
 
-        instance = this;
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onPlayerLogin(PlayerLoginEvent e) {
+		new PlayerLoginListener(this, e);
+	}
 
-        // Register the Player Login Listener
-        if (!hasRegistered) {
-            getServer().getPluginManager().registerEvents(this, this);
-            this.hasRegistered = true; // Prevents Re-registration with Bukkit
-        }
-        
-        this.getCommand("ipc").setExecutor(new Cmd(this));
+	@Override
+	public void onEnable() {
 
-        this.LM = new LocalizationManager(this, this.getConfig().getString("language"));
+		// Initialize Configuration
+		this.saveDefaultConfig();
 
-        // Initialize GeoIP Services
-        if (this.getConfig().getBoolean("use-geoip-services")) {
-            this.geoIPOBject = new GeoIPObject(this);
-        }
-        
-        this.blockManager = new BlockManager(this);
+		this.CM = new CommandManager(this);
 
-        // Initialize Database Controller
-        if (this.getConfig().getBoolean("use-mysql")) {
-            // MySQL Database Initialization
-            dbController = new DatabaseController(this,
-                    this.getConfig().getString("dbHostname"),
-                    this.getConfig().getInt("dbPort"),
-                    this.getConfig().getString("dbName"),
-                    this.getConfig().getString("dbUsername"),
-                    this.getConfig().getString("dbPassword")
-            );
-        } else {
-            // SQLite Database Initialization
-            dbController = new DatabaseController(this);
-        }
+		instance = this;
 
-        // Initialize Commands
-        CmdStore cmdStore = new CmdStore(this);
-        this.getCommandManager().registerStore(cmdStore);
+		// Register the Player Login Listener
+		if (!hasRegistered) {
+			getServer().getPluginManager().registerEvents(this, this);
+			this.hasRegistered = true; // Prevents Re-registration with Bukkit
+		}
 
-        // Initialize Statistics
-        this.statsObject = new StatsObject(this);
+		this.getCommand("ipc").setExecutor(new Cmd(this));
 
-        // Development Build Hook
-        if (!this.isDevBuild) {
-            // Auto-Update Checker
-            if (!getConfig()
-                    .getBoolean("disable-update-detection")) {
-                updater = new Updater(this, 55121, this.getFile(),
-                        Updater.UpdateType.DEFAULT, false);
-            }
+		this.LM = new LocalizationManager(this, this.getConfig().getString("language"));
 
-            // Metrics Monitoring
-            if (!getConfig()
-                    .getBoolean("disable-metrics-monitoring")) {
-                try {
-                    metrics = new Metrics(this);
-                    metrics.start();
-                } catch (IOException e) {
-                	this.getLogger().severe(getLocalizationManager()
-                            .getLocalString("METRICS_ERR"));
-                }
-            }
-        }
+		LocaleStore locStore = new LocaleStore(this);
+		getLocalizationManager().appendLocalizationStore(locStore);
 
-        // Display Random Message
-        showRandomMessage();
-    }
+		// Initialize GeoIP Services
+		if (this.getConfig().getBoolean("use-geoip-services")) {
+			this.geoIPOBject = new GeoIPObject(this);
+		}
 
-    @Override
-    public void onDisable() {
-        dbController.getDatabaseConnection().closeConnection();
-    }
+		this.blockManager = new BlockManager(this);
 
-    public static IPCheck getInstance() {
-        return instance;
-    }
+		// Initialize Database Controller
+		if (this.getConfig().getBoolean("use-mysql")) {
+			// MySQL Database Initialization
+			dbController = new DatabaseController(this,
+					this.getConfig().getString("dbHostname"),
+					this.getConfig().getInt("dbPort"),
+					this.getConfig().getString("dbName"),
+					this.getConfig().getString("dbUsername"),
+					this.getConfig().getString("dbPassword")
+					);
+		} else {
+			// SQLite Database Initialization
+			dbController = new DatabaseController(this);
+		}
 
-    public DatabaseController getDatabaseController() {
-        return this.dbController;
-    }
+		// Initialize Commands
+		CmdStore cmdStore = new CmdStore(this);
+		this.getCommandManager().registerStore(cmdStore);
 
-    public StatsObject getStatisticsObject() {
-        return this.statsObject;
-    }
+		// Initialize Statistics
+		this.statsObject = new StatsObject(this);
 
-    public GeoIPObject getGeoIPObject() {
-        return this.geoIPOBject;
-    }
+		// Development Build Hook
+		if (!this.isDevBuild) {
+			// Auto-Update Checker
+			if (!getConfig()
+					.getBoolean("disable-update-detection")) {
+				updater = new Updater(this, 55121, this.getFile(),
+						Updater.UpdateType.DEFAULT, false);
+			}
 
-    public BlockManager getBlockManager() {
-        return this.blockManager;
-    }
+			// Metrics Monitoring
+			if (!getConfig()
+					.getBoolean("disable-metrics-monitoring")) {
+				try {
+					metrics = new Metrics(this);
+					metrics.start();
+				} catch (IOException e) {
+					this.getLogger().severe(getLocalizationManager()
+							.getLocalString("METRICS_ERR"));
+				}
+			}
+		}
 
-    public String getVersion() {
-        return "2.0.6";
-    }
+		// Display Random Message
+		showRandomMessage();
+	}
 
-    public int getBuildNumber() {
-        return 2068;
-    }
+	@Override
+	public void onDisable() {
+		dbController.getDatabaseConnection().closeConnection();
+	}
 
-    private void showRandomMessage() {
-        DateStamp ds = new DateStamp();
-        String ran = Messages.getSeasonalMessage(ds.getCustomStamp("MM-dd"));
+	public static IPCheck getInstance() {
+		return instance;
+	}
 
-        if (ran != null) {
-        	this.getLogger().info(ran);
-        } else {
-        	this.getLogger().info(Messages.getRandomMessage());
-        }
-    }
+	public DatabaseController getDatabaseController() {
+		return this.dbController;
+	}
 
-    public final Player[] getOnlinePlayers() {
-        try {
-            Collection<? extends Player> result = Bukkit.getOnlinePlayers();
-            return result.toArray(new Player[result.size()]);
-        } catch (NoSuchMethodError err) {
-        	this.getLogger().info(getLocalizationManager()
-                    .getLocalString("VER_COMP_ERR"));
-        }
+	public StatsObject getStatisticsObject() {
+		return this.statsObject;
+	}
 
-        return new Player[0];
-    }
-    
-    public final LocalizationManager getLocalizationManager() {
-        return this.LM;
-    }
-    
-    public final void sendPlayerMessage(CommandSender sender, String message) {
-        sendPlayerMessage(sender, message, true);
-    }
+	public GeoIPObject getGeoIPObject() {
+		return this.geoIPOBject;
+	}
 
-    public final void sendPlayerMessage(CommandSender sender, String message,
-                                        boolean useName) {
-        sender.sendMessage(message);
-    }
-    
-    public final CommandManager getCommandManager() {
-        return this.CM;
-    }
+	public BlockManager getBlockManager() {
+		return this.blockManager;
+	}
+
+	public String getVersion() {
+		return "2.0.6";
+	}
+
+	public int getBuildNumber() {
+		return 2068;
+	}
+
+	private void showRandomMessage() {
+		DateStamp ds = new DateStamp();
+		String ran = Messages.getSeasonalMessage(ds.getCustomStamp("MM-dd"));
+
+		if (ran != null) {
+			this.getLogger().info(ran);
+		} else {
+			this.getLogger().info(Messages.getRandomMessage());
+		}
+	}
+
+	public final Player[] getOnlinePlayers() {
+		try {
+			Collection<? extends Player> result = Bukkit.getOnlinePlayers();
+			return result.toArray(new Player[result.size()]);
+		} catch (NoSuchMethodError err) {
+			this.getLogger().info(getLocalizationManager()
+					.getLocalString("VER_COMP_ERR"));
+		}
+
+		return new Player[0];
+	}
+
+	public final LocalizationManager getLocalizationManager() {
+		return this.LM;
+	}
+
+	public final void sendPlayerMessage(CommandSender sender, String message) {
+		sendPlayerMessage(sender, message, true);
+	}
+
+	public final void sendPlayerMessage(CommandSender sender, String message,
+			boolean useName) {
+		sender.sendMessage(message);
+	}
+
+	public final CommandManager getCommandManager() {
+		return this.CM;
+	}
 
 }
