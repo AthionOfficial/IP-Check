@@ -26,7 +26,7 @@ public class Cmd implements CommandExecutor {
 				CmdHelp.cmd(sender, args, plugin);
 				break;
 			case "check":
-				if(args.length != 1){
+				if(args.length != 2){
 					sender.sendMessage(ChatColor.GREEN + "Check" + ":");
 					sender.sendMessage(ChatColor.YELLOW + " Displays information about the player or IP Specified.");
 					sender.sendMessage(ChatColor.RED + "    " + "Syntax:" + ChatColor.LIGHT_PURPLE + " /ipc check <PLAYER | IP>");
@@ -35,7 +35,7 @@ public class Cmd implements CommandExecutor {
 				}
 				break;
 			case "purge":
-				if(args.length != 1){
+				if(args.length != 2){
 					sender.sendMessage(ChatColor.GREEN + "Purge" + ":");
 					sender.sendMessage(ChatColor.YELLOW + " Deletes records of the IP or Player name specified.");
 					sender.sendMessage(ChatColor.RED + "    " + "Syntax:" + ChatColor.LIGHT_PURPLE + " /ipc purge <PLAYER | IP>");
@@ -53,7 +53,7 @@ public class Cmd implements CommandExecutor {
 				CmdStatus.cmd(sender, args, plugin);
 				break;
 			case "toggle":
-				if(args.length != 1){
+				if(args.length != 2){
 					sender.sendMessage(ChatColor.GREEN + "Check" + ":");
 					sender.sendMessage(ChatColor.YELLOW + " Toggles the specified option. For a list of options, type ''/ipc toggle help''");
 					sender.sendMessage(ChatColor.RED + "    " + "Syntax:" + ChatColor.LIGHT_PURPLE + " /ipc toggle <OPTION_ID | help>");
