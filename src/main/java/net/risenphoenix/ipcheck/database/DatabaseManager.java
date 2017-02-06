@@ -62,11 +62,12 @@ public class DatabaseManager {
 		if (poolSize > 1) {
 			this.connection = new DatabaseConnection(plugin, hostname, port,
 					database, username, pwd, poolSize);
-
+			plugin.getLogger().info("Pooled MySQL Connection Created");
 			// Connection Creation (Non-pooled)
 		} else {
 			this.connection = new DatabaseConnection(plugin, hostname, port,
 					database, username, pwd);
+			plugin.getLogger().info("Non-Pooled MySQL Connection Created");
 		}
 		this.type = DatabaseType.MYSQL;
 	}

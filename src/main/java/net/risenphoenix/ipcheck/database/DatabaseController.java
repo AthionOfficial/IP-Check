@@ -31,6 +31,7 @@ public class DatabaseController extends DatabaseManager {
         //this.enableDebug(true);
         this.dropTables(); // Attempt Table Drop
         this.initializeMySQLTables(); // Initialize Tables
+        plugin.getLogger().info("MySql Database Used");
     }
 
     private void dropTables() {
