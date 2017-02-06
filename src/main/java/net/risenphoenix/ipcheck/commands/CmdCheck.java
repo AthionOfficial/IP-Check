@@ -13,7 +13,7 @@ public class CmdCheck extends Command {
 
         setName("Check");
         setHelp(this.getLocalString("HELP_CHECK"));
-        this.setSyntax("ipc <PLAYER | IP>");
+        this.setSyntax("ipc check <PLAYER | IP>");
         this.setPermissions(new Permission[]{new Permission("ipcheck.use")});
     }
 
