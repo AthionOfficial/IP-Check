@@ -41,19 +41,9 @@ public class LocaleStore extends LocalizationStore {
     @Override
     public void initializeStore() {
         this.add("NO_FIND", "The player or IP specified could not be found.");
-        this.add("PLAYER_EXEMPT_SUC", "Player added to Exemption List!");
-        this.add("IP_EXEMPT_SUC", "IP-address added to Exemption List!");
-        this.add("EXEMPT_DEL_SUC", "Exemption successfully removed!");
-        this.add("EXEMPT_DEL_ERR", "Exemption specified does not exist.");
-        this.add("EXEMPTION_FAIL", "An error occurred while attempting to add " +
-                "the exemption.");
-        this.add("EXEMPT_LIST_IP", "Exempt IPs:");
-        this.add("EXEMPT_LIST_PLAYER", "Exempt Players:");
         this.add("TOGGLE_SECURE", "Secure-Mode");
         this.add("TOGGLE_NOTIFY", "Notify-On-Login");
         this.add("TOGGLE_DETAIL", "Descriptive-Notify");
-        this.add("TOGGLE_ACTIVE", "Active-Mode");
-        this.add("TOGGLE_BLACKLIST", "Country-Black-List");
         this.add("TOGGLE_GEOIP", "GeoIP-Services");
         this.add("TOGGLE_REJOIN", "Rejoin-Warning");
         this.add("TOGGLE_INVALID", "You did not specify a valid option.");
@@ -73,78 +63,28 @@ public class LocaleStore extends LocalizationStore {
 
         // Command Names
         this.add("CMD_CHECK","Check");
-        this.add("CMD_BAN","Ban");
-        this.add("CMD_UNBAN","Unban");
-        this.add("CMD_EXEMPT","Exempt");
-        this.add("CMD_UNEXEMPT","Unexempt");
         this.add("CMD_RELOAD","Reload");
         this.add("CMD_ABOUT","About");
         this.add("CMD_TOGGLE","Toggle");
-        this.add("CMD_EXEMPT_LIST","Exempt-List (all)");
-        this.add("CMD_EXEMPT_LIST_IP","Exempt-List (ip)");
-        this.add("CMD_EXEMPT_LIST_PLAYER","Exempt-List (player)");
         this.add("CMD_HELP","Help");
-        this.add("CMD_KICK","Kick");
-        this.add("CMD_SBAN","Single-Ban");
         this.add("CMD_PURGE","Purge");
         this.add("CMD_SCAN","Scan");
-        this.add("CMD_BANALL","Ban-All");
-        this.add("CMD_UNBANALL","Unban-All");
-        this.add("CMD_BLOCK", "Block");
-        this.add("CMD_UNBLOCK", "Unblock");
-        this.add("CMD_PROTECT", "Protect");
-        this.add("CMD_UNPROTECT", "Unprotect");
-        this.add("CMD_MODBAN", "Modify Ban");
         this.add("CMD_STATUS", "Status");
 
         // Command Help Documentation
         this.add("HELP_CHECK","Displays information about " +
                 "the player or IP Specified.");
-        this.add("HELP_BAN","Bans the player or IP " +
-                "specified. In addition, this command will also ban any " +
-                "alternative accounts associated, plus the IP-address.");
-        this.add("HELP_UNBAN","Unbans the Player or IP " +
-                "specified. Additionally, unbans any associated accounts, " +
-                "plus the IP-address.");
-        this.add("HELP_EXEMPT","Exempts the IP or player " +
-                "specified from events-checking.");
-        this.add("HELP_UNEXEMPT","Removes the specified " +
-                "exemption from file.");
         this.add("HELP_RELOAD","Reloads the IP-Check plugin.");
         this.add("HELP_ABOUT","Displays Information about " +
                 "IP-Check.");
         this.add("HELP_TOGGLE","Toggles the specified " +
                 "option. For a list of options, type ''/ipc toggle help''");
-        this.add("HELP_EXEMPT_LIST","Displays all players/" +
-                "ips that are exempt from events-checking.");
-        this.add("HELP_EXEMPT_LIST_IP","Displays all IPs " +
-                "which are exempt from events-checking.");
-        this.add("HELP_EXEMPT_LIST_PLAYER","Displays all " +
-                "players who are exempt from events-checking.");
         this.add("HELP_HELP","Provides information about " +
                 "all of the associated IP-Check Commands.");
-        this.add("HELP_KICK","Kicks all players linked to " +
-                "player or IP specified.");
-        this.add("HELP_SBAN","Bans a single player from " +
-                "your server.");
         this.add("HELP_PURGE","Deletes records of the IP or " +
                 "Player name specified.");
         this.add("HELP_SCAN","Scans all players currently " +
                 "online to check for any who may possess multiple accounts.");
-        this.add("HELP_BANALL","Bans all accounts found " +
-                "within specified time frame.");
-        this.add("HELP_UNBANALL","Unbans all accounts found " +
-                "within specified time frame.");
-        this.add("HELP_BLOCK", "Blocks the country specified, preventing " +
-                "anyone from joining the server from said country.");
-        this.add("HELP_UNBLOCK", "Unblocks a blocked country, allowing " +
-                "players from said country to join the server.");
-        this.add("HELP_PROTECT", "Protects the specified player from being " +
-                "banned by IP-Check.");
-        this.add("HELP_UNPROTECT", "Allows the specified player to be banned " +
-                "by IP-Check.");
-        this.add("HELP_MODBAN", "Allows you to modify the ban message of " +
-                "any banned player.");
         this.add("HELP_STATUS", "Displays IP-Check usage statistics.");
 
         // Other Messages
@@ -162,9 +102,6 @@ public class LocaleStore extends LocalizationStore {
                 "If you see this message, please contact the developers at " +
                 "dev-bukkit and inform them of the circumstances that caused " +
                 "this error.");
-        this.add("SBAN_IP_HELP","To ban an IP address, use " +
-                "'/ipc ban'");
-        this.add("EXEMPT_LIST_TALLY","Total Exemptions:");
         this.add("TOGGLE_HEAD","List of Toggle Options:");
         this.add("ABOUT_TEXT","Version %s build %s by Jacob Keep (Jnk1296). " +
                 "All rights reserved. Built against %s %s, build %s by %s. " +
@@ -192,29 +129,10 @@ public class LocaleStore extends LocalizationStore {
 
         this.add("REPORT_FOOT_PTIME", "Last Login:");
 
-        this.add("REPORT_FOOT_PBAN","Player Banned:");
-        this.add("REPORT_FOOT_PEXM","Player Exempt:");
-
-        this.add("REPORT_FOOT_PPRO", "Player Protected:");
-
         this.add("REPORT_FOOT_PREXM", "Will warn on Rejoin Attempt:");
 
         this.add("REPORT_FOOT_ERROR","Player object returned "+
                 "was NULL");
-
-        this.add("REPORT_FOOT_IBAN","IP Banned:");
-        this.add("REPORT_FOOT_IEXM","IP Exempt:");
-        this.add("REPORT_FOOT_IREXM","Warn when banned players rejoin under this IP:");
-
-        this.add("REPORT_BAN_HEAD", "Ban Reason:");
-        this.add("REPORT_BAN_GENERIC", "No Message");
-
-        // Exempt / Unexempt Messages
-        this.add("EXEMPT_PROMPT", "Please select the Exemption you wish to " +
-                "create:");
-        this.add("UNEXEMPT_PROMPT", "Please select the Exemption you wish to " +
-                "remove:");
-        this.add("EXEMPT_PROMPT_CANCEL", "Prompt aborted.");
 
         // GeoIP / Block Messages
         this.add("GEOIP_DB_MISSING", "The GeoIP.dat database could not be found. " +
@@ -228,49 +146,16 @@ public class LocaleStore extends LocalizationStore {
                 "database from: http://geolite.maxmind.com/download/geoip/" +
                 "database/GeoLiteCountry/GeoIP.dat.gz...");
         this.add("GEOIP_DISABLED", "GeoIP Services have been disabled via configuration.");
-        this.add("BLOCK_CMD_DISABLE", "The Block Commands have been disabled " +
-                "because the Block Manager failed to initialize.");
-        this.add("BLOCK_SUC", "Country ID successfully added to black list!");
-        this.add("BLOCK_ERR", "This country ID has already been black-listed.");
-        this.add("BLOCK_HELP", "Please visit " +
-                "http://dev.bukkit.org/bukkit-plugins/ip-check-jnk/pages/" +
-                "country-ids/ for a list of country IDs.");
-        this.add("UNBLOCK_SUC", "Country ID successfully removed from black-list!");
-        this.add("UNBLOCK_ERR", "This Country ID was not found in the black-list.");
-        this.add("BLACK_LIST_OFF", "You must enable the Country Black-List " +
-                "for this configuration to take effect.");
-
-        this.add("PROTECT_SUC", "Player successfully protected!");
-        this.add("PROTECT_IP_ERR", "You cannot protect or unprotect an IP address.");
-        this.add("UNPROTECT_SUC", "Player successfully unprotected!");
-
-        this.add("MODBAN_IP", "IP addresses cannot have ban messages.");
-        this.add("MODBAN_SUC", "Successfully modified ban message.");
 
         // Stats Messages
         this.add("STATS_HEADER", "Plugin Usage Statistics:");
         this.add("STATS_PVER", "IP-Check Version:");
-        this.add("STATS_LVER", "RP-Commons Version:");
         this.add("STATS_DB_TYPE", "Database Type:");
-        this.add("STATS_JVER", "Java Version:");
-        this.add("STATS_OS", "Operating System:");
-        this.add("STATS_OS_ARCH", "System Architecture:");
         this.add("STATS_PLOG", "Total Players Logged:");
         this.add("STATS_ILOG", "Total IPs Logged:");
-        this.add("STATS_PEXM", "Total Players Exempt:");
-        this.add("STATS_IEXM", "Total IPs Exempt:");
-        this.add("STATS_RPEXM", "Total Players Rejoin Exempt:");
-        this.add("STATS_RIEXM", "Total IPs Rejoin Exempt:");
-        this.add("STATS_PBAN", "Total Players Banned:");
-        this.add("STATS_IBAN", "Total IPs Banned:");
-        this.add("STATS_PLOGS", "Player Logins this Session:");
-        this.add("STATS_PBANS", "Players Banned this Session:");
-        this.add("STATS_PUNBANS", "Players Unbanned this Session:");
+        this.add("STATS_PLOGS", "Player Logins this Session:");;
         this.add("STATS_WARNS", "Login Warnings this Session:");
-        this.add("STATS_KICKS", "Kicks Issued this Session:");
         this.add("STATS_SECURE", "Secure Mode Status:");
-        this.add("STATS_ACTIVE", "Active Mode Status:");
-        this.add("STATS_BLACKLIST", "Country Black-List Status:");
 
         this.add("VER_COMP_ERR", "This version of IP-Check is not fully " +
                 "compatible with the version of Bukkit you are running. " +

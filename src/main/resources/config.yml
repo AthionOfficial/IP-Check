@@ -1,6 +1,6 @@
 # ============================================================================
 #
-# IP-Check v2.0.6 b2067 | RP-Commons v1.03.02 b78   Author; Jnk1296
+# IP-Check v3-SNAPSHOT    Authors; Jnk1296, dordsor21
 # For more information visit http://dev.bukkit.org/server-mods/ip-check-jnk/
 #
 # IT IS RECOMMENDED THAT YOU READ THE CONFIGURATION EXPLANATION BEFORE MAKING
@@ -24,9 +24,6 @@ language: "en"
 # Use MySQL instead of SQLite?
 use-mysql: false
 
-# MySQL Connection Pool Size (number of connections available to IP-Check)
-mysql-pool-size: 1
-
 # Login details if backend is mysql
 dbUsername: "root"
 dbPassword: ""
@@ -40,9 +37,6 @@ dbGenerated: false
 # Should use Login Checking?
 notify-on-login: true
 
-# Should warn when a banned player attempts to join
-warn-on-rejoin-attempt: false
-
 # Should show descriptive notifications?
 descriptive-notice: false
 
@@ -52,34 +46,11 @@ descriptive-notice: false
 # secure-kick-threshold).
 secure-mode: false
 
-# Should this plugin be your default ban/kick manager?
-should-manage-bans: true
-
-# Should use Active Mode?
-# Active Mode is a feature of IP-Check that actively bans new accounts that
-# join your server if they connect from a banned IP-Address. This helps keep
-# IP-Check's database and your server's ban list up to date.
-# NOTE; This function will not work if should-mange-bans is false.
-active-mode: false
-
-# Should Ban Account when kicked by Secure Mode?
-# NOTE; This function will not work if should-manage-bans is false.
-should-ban-on-secure-kick: false
-
-# Set a minimum number of accounts to have before being notified
-min-account-notify-threshold: 1
-
 # Set a minimum number of accounts to have before being kicked
 secure-kick-threshold: 1
 
 # Set Secure Kick Message
 secure-kick-message: "Multiple Accounts Not Permitted."
-
-# Set Ban Message
-ban-message: "Banned for Multi-Accounting."
-
-# Set Kick Message
-kick-message: "Kicked from server."
 
 # Disable Update Detection
 disable-update-detection: false
@@ -92,15 +63,6 @@ use-geoip-services: true
 
 # Allow IP-Check to automatically download the GeoIP Database
 allow-geoip-download: true
-
-# Allow the use of the Country Blacklist
-use-country-blacklist: true
-
-# Which countries do you want to block from joining your server?
-country-blacklist: []
-
-# What message do you want to display to people who's country is blocked?
-blocked-message: "Your country has been blocked from joining this server."
 
 # MC Hammer!
 config-version: 1

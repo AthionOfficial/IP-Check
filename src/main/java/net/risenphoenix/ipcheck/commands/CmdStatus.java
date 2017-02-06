@@ -38,24 +38,8 @@ public class CmdStatus extends Command {
 				stats.getPluginVersion());
 
 		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_LVER") + ChatColor.YELLOW +
-				stats.getPluginVersion());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
 				plugin.getLocalizationManager().getLocalString("STATS_DB_TYPE") + ChatColor.YELLOW +
 				stats.getDatabaseType());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_JVER") + ChatColor.YELLOW +
-				stats.getJavaVersion());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_OS") + ChatColor.YELLOW +
-				stats.getOperatingSystem());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_OS_ARCH") + ChatColor.YELLOW +
-				stats.getOperatingSystemArch());
 
 		// Border
 		sender.sendMessage(ChatColor.DARK_GRAY +
@@ -70,56 +54,12 @@ public class CmdStatus extends Command {
 				stats.getIPsLogged());
 
 		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_PEXM") + ChatColor.YELLOW +
-				stats.getPlayersExempt());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_IEXM") + ChatColor.YELLOW +
-				stats.getIPsExempt());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_RPEXM") + ChatColor.YELLOW +
-				stats.getPlayersRejoinExempt());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_RIEXM") + ChatColor.YELLOW +
-				stats.getIPsRejoinExempt());
-
-		// Border
-		sender.sendMessage(ChatColor.DARK_GRAY +
-				"------------------------------------------------");
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_PBAN") + ChatColor.YELLOW +
-				stats.getPlayersBanned());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_IBAN") + ChatColor.YELLOW +
-				stats.getIPsBanned());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
 				plugin.getLocalizationManager().getLocalString("STATS_PLOGS") + ChatColor.YELLOW +
 				stats.getLogPlayerSession());
 
 		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_PBANS") + ChatColor.YELLOW +
-				stats.getBannedPlayerSession());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_PUNBANS") + ChatColor.YELLOW +
-				stats.getUnbannedPlayerSession());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
 				plugin.getLocalizationManager().getLocalString("STATS_WARNS") + ChatColor.YELLOW +
 				stats.getWarningIssuedSession());
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_KICKS") + ChatColor.YELLOW +
-				stats.getKickIssuedSession());
-
-		// Border
-		sender.sendMessage(ChatColor.DARK_GRAY +
-				"------------------------------------------------");
 
 		String isTrue = ChatColor.GREEN + "True",
 				isFalse = ChatColor.RED + "False";
@@ -127,15 +67,7 @@ public class CmdStatus extends Command {
 		sender.sendMessage(ChatColor.LIGHT_PURPLE +
 				plugin.getLocalizationManager().getLocalString("STATS_SECURE") + ChatColor.YELLOW +
 				((stats.getSecureStatus()) ? isTrue : isFalse));
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_ACTIVE") + ChatColor.YELLOW +
-				((stats.getActiveStatus()) ? isTrue : isFalse));
-
-		sender.sendMessage(ChatColor.LIGHT_PURPLE +
-				plugin.getLocalizationManager().getLocalString("STATS_BLACKLIST") + ChatColor.YELLOW +
-				((stats.getBlackListStatus()) ? isTrue : isFalse));
-
+	
 		// Border
 		sender.sendMessage(ChatColor.DARK_GRAY +
 				"------------------------------------------------");
