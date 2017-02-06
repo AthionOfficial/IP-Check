@@ -1,39 +1,6 @@
-/*
- * Copyright © 2014 Jacob Keep (Jnk1296). All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  * Redistributions of source code must retain the above copyright notice, 
- *   this list of conditions and the following disclaimer.
- *
- *  * Redistributions in binary form must reproduce the above copyright notice, 
- *   this list of conditions and the following disclaimer in the documentation 
- *   and/or other materials provided with the distribution.
- *
- *  * Neither the name of JuNK Software nor the names of its contributors may 
- *   be used to endorse or promote products derived from this software without
- *   specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
 package net.risenphoenix.ipcheck.database;
 
-import net.risenphoenix.commons.Plugin;
-import net.risenphoenix.commons.database.DatabaseManager;
-import net.risenphoenix.commons.database.QueryFilter;
-import net.risenphoenix.commons.database.StatementObject;
+import net.risenphoenix.ipcheck.IPCheck;
 import net.risenphoenix.ipcheck.objects.IPObject;
 import net.risenphoenix.ipcheck.objects.UserObject;
 
@@ -44,8 +11,8 @@ import java.util.ArrayList;
 public class DatabaseController extends DatabaseManager {
 
     // SQ-Lite Initializer
-    public DatabaseController(final Plugin plugin) {
-        super(plugin, "ip-check");
+    public DatabaseController(final IPCheck ipCheck) {
+        super(ipCheck, "ip-check");
 
         // Enable Debugging to allow us to view the dynamic SQL queries
         //this.enableDebug(true);
@@ -54,7 +21,7 @@ public class DatabaseController extends DatabaseManager {
     }
 
     // MySQL Initializer
-    public DatabaseController(final Plugin plugin, String hostname, int port,
+    public DatabaseController(final IPCheck plugin, String hostname, int port,
                               String database, String username, String pwd
                               /* int poolSize */) {
         super(plugin, hostname, port, database, username, pwd, 0);
@@ -67,7 +34,7 @@ public class DatabaseController extends DatabaseManager {
     }
 
     private void dropTables() {
-        if (!getPlugin().getConfigurationManager().getBoolean("dbGenerated")) {
+        if (!getPlugin().getConfig().getBoolean("dbGenerated")) {
             // SQL Strings
             String SQL_0 = "DROP TABLE IF EXISTS ipcheck_log;";
             String SQL_1 = "DROP TABLE IF EXISTS ipcheck_user;";
@@ -79,8 +46,8 @@ public class DatabaseController extends DatabaseManager {
             executeStatement(new StatementObject(getPlugin(), SQL_2));
 
             // Save Configuration Option
-            getPlugin().getConfigurationManager()
-                    .setConfigurationOption("dbGenerated", true);
+            getPlugin().getConfig()
+                    .set("dbGenerated", true);
         }
     }
 
@@ -169,7 +136,7 @@ public class DatabaseController extends DatabaseManager {
     }
 
     public final void addIP(String ip) {
-        String SQL = "insert " + ((this.getPlugin().getConfigurationManager()
+        String SQL = "insert " + ((this.getPlugin().getConfig()
                 .getBoolean("use-mysql")) ? "" : "or ") + "ignore into " +
                 "ipcheck_ip (ip) values (?)";
 
@@ -178,7 +145,7 @@ public class DatabaseController extends DatabaseManager {
     }
 
     public final void addPlayer(String player) {
-        String SQL = "insert " + ((this.getPlugin().getConfigurationManager()
+        String SQL = "insert " + ((this.getPlugin().getConfig()
                 .getBoolean("use-mysql")) ? "" : "or ") + "ignore into " +
                 "ipcheck_user (username) values (?)";
 
@@ -735,7 +702,7 @@ public class DatabaseController extends DatabaseManager {
             @Override
             public Object onExecute(ResultSet res) {
                 DatabaseController dbC = (DatabaseController) this.getData()[0];
-                ArrayList<UserObject> users = new ArrayList<>();
+                ArrayList<UserObject> users = new ArrayList<UserObject>();
 
                 try {
                     while (res.next()) {
@@ -840,9 +807,8 @@ public class DatabaseController extends DatabaseManager {
                 return isExempt;
             }
         };
-
-        return (boolean) this.executeQuery(new StatementObject(this.getPlugin(),
-                SQL, new Object[]{player.toLowerCase()}), filter);
+        
+        return Boolean.parseBoolean(this.executeQuery(new StatementObject(this.getPlugin(), SQL, new Object[]{player.toLowerCase()}), filter).toString());
     }
 
     public final void setRejoinExemptIP(String ip, boolean exempt) {
@@ -873,8 +839,8 @@ public class DatabaseController extends DatabaseManager {
             }
         };
 
-        return (boolean) this.executeQuery(new StatementObject(this.getPlugin(),
-                SQL, new Object[]{ip}), filter);
+        return Boolean.parseBoolean(this.executeQuery(new StatementObject(this.getPlugin(),
+                SQL, new Object[]{ip}), filter).toString());
     }
 
     public final ArrayList<UserObject> fetchRejoinExemptPlayers() {
@@ -884,7 +850,7 @@ public class DatabaseController extends DatabaseManager {
             @Override
             public Object onExecute(ResultSet res) {
                 // IPO Storage
-                ArrayList<UserObject> upos = new ArrayList<>();
+                ArrayList<UserObject> upos = new ArrayList<UserObject>();
 
                 // Fetch DatabaseController from Data
                 DatabaseController dbc = (DatabaseController) getData()[0];
@@ -913,7 +879,7 @@ public class DatabaseController extends DatabaseManager {
             @Override
             public Object onExecute(ResultSet res) {
                 // IPO Storage
-                ArrayList<IPObject> ipos = new ArrayList<>();
+                ArrayList<IPObject> ipos = new ArrayList<IPObject>();
 
                 // Fetch DatabaseController from Data
                 DatabaseController dbc = (DatabaseController) getData()[0];
@@ -970,8 +936,8 @@ public class DatabaseController extends DatabaseManager {
             }
         };
 
-        return (boolean) executeQuery(new StatementObject(this.getPlugin(), SQL,
-                new Object[]{player.toLowerCase()}), filter);
+        return Boolean.parseBoolean(executeQuery(new StatementObject(this.getPlugin(), SQL,
+                new Object[]{player.toLowerCase()}), filter).toString());
     }
 
     private void executeColumnUpdate() {
@@ -1032,8 +998,8 @@ public class DatabaseController extends DatabaseManager {
             };
 
             // Fetch Boolean from Database
-            hasRejoinIP = (boolean) this.executeQuery(
-                    new StatementObject(this.getPlugin(), SQL_I), filter_two);
+            hasRejoinIP = Boolean.parseBoolean(this.executeQuery(
+                    new StatementObject(this.getPlugin(), SQL_I), filter_two).toString());
 
             // Execute Results
             if (!hasRejoinPlayer) {
@@ -1064,7 +1030,7 @@ public class DatabaseController extends DatabaseManager {
         // MySQL
         } else {
             String SQL_P = "SHOW COLUMNS FROM " +
-                    getPlugin().getConfigurationManager().getString("dbName") +
+                    getPlugin().getConfig().getString("dbName") +
                     ".ipcheck_user";
 
             QueryFilter filter = new QueryFilter() {
@@ -1095,7 +1061,7 @@ public class DatabaseController extends DatabaseManager {
             hasProtectedPlayer = res[1];
 
             String SQL_I = "SHOW COLUMNS FROM " +
-                    getPlugin().getConfigurationManager().getString("dbName") +
+                    getPlugin().getConfig().getString("dbName") +
                     ".ipcheck_ip";
 
             QueryFilter filter_two = new QueryFilter() {
@@ -1117,8 +1083,8 @@ public class DatabaseController extends DatabaseManager {
             };
 
             // Fetch Boolean from Database
-            hasRejoinIP = (boolean) this.executeQuery(
-                    new StatementObject(this.getPlugin(), SQL_I), filter_two);
+            hasRejoinIP = Boolean.parseBoolean(this.executeQuery(
+                    new StatementObject(this.getPlugin(), SQL_I), filter_two).toString());
 
             // Execute Results
             if (!hasRejoinPlayer) {

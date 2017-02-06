@@ -30,6 +30,8 @@
 
 package net.risenphoenix.commons.commands;
 
+import net.risenphoenix.ipcheck.commands.Command;
+
 public class ParseResult {
 
     private final Command cmd;

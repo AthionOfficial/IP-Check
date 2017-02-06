@@ -32,6 +32,7 @@ package net.risenphoenix.commons.stores;
 
 import net.risenphoenix.commons.Plugin;
 import net.risenphoenix.commons.configuration.ConfigurationOption;
+import net.risenphoenix.ipcheck.stores.Store;
 
 import java.util.ArrayList;
 

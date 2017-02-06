@@ -30,8 +30,8 @@
 
 package net.risenphoenix.ipcheck.objects;
 
-import net.risenphoenix.commons.database.DatabaseManager;
 import net.risenphoenix.ipcheck.IPCheck;
+import net.risenphoenix.ipcheck.database.DatabaseManager;
 
 import java.util.Map;
 
@@ -52,10 +52,6 @@ public class StatsObject {
 
     public String getPluginVersion() {
         return ipc.getVersion();
-    }
-
-    public Map<String, String> getLibraryVersion() {
-        return ipc.getVersionInfo();
     }
 
     public String getJavaVersion() {
@@ -147,14 +143,14 @@ public class StatsObject {
     }
 
     public boolean getSecureStatus() {
-        return ipc.getConfigurationManager().getBoolean("secure-mode");
+        return ipc.getConfig().getBoolean("secure-mode");
     }
 
     public boolean getActiveStatus() {
-        return ipc.getConfigurationManager().getBoolean("active-mode");
+        return ipc.getConfig().getBoolean("active-mode");
     }
 
     public boolean getBlackListStatus() {
-        return ipc.getConfigurationManager().getBoolean("use-country-blacklist");
+        return ipc.getConfig().getBoolean("use-country-blacklist");
     }
 }

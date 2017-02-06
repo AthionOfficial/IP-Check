@@ -30,9 +30,9 @@
 
 package net.risenphoenix.commons.commands.parsers;
 
-import net.risenphoenix.commons.commands.Command;
-import net.risenphoenix.commons.commands.CommandManager;
 import net.risenphoenix.commons.commands.ComparisonResult;
+import net.risenphoenix.ipcheck.commands.Command;
+import net.risenphoenix.ipcheck.commands.CommandManager;
 
 public class DynamicParser extends Parser {
 

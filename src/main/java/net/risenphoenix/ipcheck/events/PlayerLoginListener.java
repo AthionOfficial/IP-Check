@@ -1,67 +1,32 @@
-/*
- * Copyright © 2014 Jacob Keep (Jnk1296). All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  * Redistributions of source code must retain the above copyright notice, 
- *   this list of conditions and the following disclaimer.
- *
- *  * Redistributions in binary form must reproduce the above copyright notice, 
- *   this list of conditions and the following disclaimer in the documentation 
- *   and/or other materials provided with the distribution.
- *
- *  * Neither the name of JuNK Software nor the names of its contributors may 
- *   be used to endorse or promote products derived from this software without
- *   specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
 package net.risenphoenix.ipcheck.events;
 
-import net.risenphoenix.commons.configuration.ConfigurationManager;
 import net.risenphoenix.ipcheck.IPCheck;
 import net.risenphoenix.ipcheck.actions.ActionBroadcast;
-import net.risenphoenix.ipcheck.commands.block.BlockManager;
 import net.risenphoenix.ipcheck.database.DatabaseController;
 import net.risenphoenix.ipcheck.objects.DateObject;
 import net.risenphoenix.ipcheck.objects.IPObject;
 import net.risenphoenix.ipcheck.objects.UserObject;
+
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.permissions.Permission;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 public class PlayerLoginListener {
 
     private IPCheck ipc;
-    private ConfigurationManager config;
+    private FileConfiguration config;
     private DatabaseController db;
     private PlayerLoginEvent e;
 
-    private BlockManager cBlockManager = null;
-
     public PlayerLoginListener(IPCheck ipc, PlayerLoginEvent e) {
         this.ipc = ipc;
-        this.config = ipc.getConfigurationManager();
+        this.config = ipc.getConfig();
         this.db = ipc.getDatabaseController();
         this.e = e;
-
-        this.cBlockManager = ipc.getBlockManager();
 
         this.execute();
     }
@@ -74,7 +39,7 @@ public class PlayerLoginListener {
         boolean debugAddress = false;
 
         if (debugAddress)
-            ipc.sendConsoleMessage(Level.INFO, "Address Output: " + address);
+            ipc.getLogger().info("Address Output: " + address);
 
         // Log Player and IP
         db.log(player.getName(), address);
@@ -126,27 +91,6 @@ public class PlayerLoginListener {
             return;
         }
 
-        // Check if the player's country is blocked. If so, kick them with a
-        // corresponding message. (GeoIP Services Hook)
-        if (config.getBoolean("use-country-blacklist")) {
-            // CBlock will be null if the database is not found.
-            if (cBlockManager != null) {
-                if (cBlockManager.getStatus()) {
-                    // Fetch Country ID for player
-                    String countryID = cBlockManager.getCountryID(address);
-                    String countryName = cBlockManager.getCountry(address);
-
-                    // If the country is blocked via black list, kick the player.
-                    if (cBlockManager.isBlockedCountry(countryID)) {
-                        e.setKickMessage(config.getString("blocked-message") +
-                                " (" + countryName + ")");
-                        e.setResult(Result.KICK_OTHER);
-                        return;
-                    }
-                }
-            }
-        }
-
         // If the player was not kicked for having a banned status or a blocked
         // country, check for alt accounts with the database. (Secure Mode Hook)
         boolean shouldCheck = true;
@@ -190,7 +134,7 @@ public class PlayerLoginListener {
         String player = e.getPlayer().getName();
         ArrayList<String> names = this.getUniqueAccounts(player);
 
-        int threshold = config.getInteger("secure-kick-threshold");
+        int threshold = config.getInt("secure-kick-threshold");
 
         // If the number of accounts is greater than the threshold, and the
         // player-name and IP are both non-exempt, then check if the account

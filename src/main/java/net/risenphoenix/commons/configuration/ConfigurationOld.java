@@ -31,7 +31,8 @@
 package net.risenphoenix.commons.configuration;
 
 import net.risenphoenix.commons.Plugin;
-import net.risenphoenix.commons.localization.LocalizationManager;
+import net.risenphoenix.ipcheck.LocalizationManager;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

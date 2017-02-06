@@ -31,6 +31,7 @@
 package net.risenphoenix.commons.stores;
 
 import net.risenphoenix.commons.Plugin;
+import net.risenphoenix.ipcheck.stores.Store;
 
 import java.util.HashMap;
 import java.util.Map;
