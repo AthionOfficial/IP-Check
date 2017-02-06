@@ -89,8 +89,9 @@ public class IPCheck extends JavaPlugin implements Listener {
 		this.blockManager = new BlockManager(this);
 
 		// Initialize Database Controller
-		if (this.getConfig().getBoolean("use-mysql")) {
+		if(this.getConfig().getBoolean("use-mysql")) {
 			// MySQL Database Initialization
+			this.getLogger().info("Initialising MySQL Database");
 			dbController = new DatabaseController(this,
 					this.getConfig().getString("dbHostname"),
 					this.getConfig().getInt("dbPort"),
@@ -100,6 +101,7 @@ public class IPCheck extends JavaPlugin implements Listener {
 					);
 		} else {
 			// SQLite Database Initialization
+			this.getLogger().info("Initialising SQLite Database");
 			dbController = new DatabaseController(this);
 		}
 
