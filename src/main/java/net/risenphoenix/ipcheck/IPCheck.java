@@ -164,7 +164,7 @@ public class IPCheck extends JavaPlugin implements Listener {
 	}
 
 	public String getVersion() {
-		return "2.0.6";
+		return "3-SNAPSHOT";
 	}
 
 	public int getBuildNumber() {
