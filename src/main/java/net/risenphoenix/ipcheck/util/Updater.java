@@ -608,7 +608,6 @@ public class Updater {
 
     private class UpdateRunnable implements Runnable {
 
-        @Override
         public void run() {
             if (Updater.this.url != null) {
                 // Obtain the results of the project's file feed
