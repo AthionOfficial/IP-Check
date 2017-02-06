@@ -17,7 +17,7 @@ public class BlockManager {
 
 		if (ipc.getConfig().getBoolean("use-geoip-services")) {
 			this.isEnabled = true;
-			this.ls = ipc.getGeoIPObject().getLookupService();
+			//this.ls = ipc.getGeoIPObject().getLookupService();
 		}
 	}
 
