@@ -27,6 +27,7 @@ public class LocalizationManager {
 		} else {
 			this.selectedLanguage = "en";
 			if (!langID.equalsIgnoreCase("en")){ 
+				loadDefaultTranslation();
 				plugin.getLogger().warning("Translation Index " + langID + ".yml " + "could not be found. Falling back to Default Translation " + "(English).");
 			}
 		}

@@ -59,6 +59,10 @@ public class IPCheck extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        
+        // Initialize Configuration
+        this.saveDefaultConfig();
+    	
         this.CM = new CommandManager(this);
 
         instance = this;
@@ -72,9 +76,6 @@ public class IPCheck extends JavaPlugin implements Listener {
         this.getCommand("ipc").setExecutor(new Cmd(this));
 
         this.LM = new LocalizationManager(this, this.getConfig().getString("language"));
-        
-        // Initialize Configuration
-        this.saveDefaultConfig();
 
         // Initialize GeoIP Services
         if (this.getConfig().getBoolean("use-geoip-services")) {
