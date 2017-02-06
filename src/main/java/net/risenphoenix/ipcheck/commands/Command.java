@@ -273,7 +273,7 @@ public class Command extends ValidatingPrompt {
         if (this.commandPerms == null || sender.isOp()) return true;
 
         for (int i = 0; i < this.commandPerms.length; i++) {
-            if (!sender.hasPermission(this.commandPerms[i])) return false;
+            if (!sender.hasPermission(this.commandPerms[i]))return false;
         }
 
         return true;

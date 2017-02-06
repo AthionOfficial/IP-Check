@@ -18,7 +18,7 @@ public class CmdCheck extends Command {
     }
 
     public static void cmd(CommandSender sender, String[] args) {
-        new ReportObject(IPCheck.getInstance()).onExecute(sender, args[0]);
+        new ReportObject(IPCheck.getInstance()).onExecute(sender, args[1]);
     }
 
 }
