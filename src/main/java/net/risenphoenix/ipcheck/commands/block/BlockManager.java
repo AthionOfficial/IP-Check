@@ -10,14 +10,14 @@ public class BlockManager {
 	private boolean isEnabled = false;
 
 	private IPCheck ipc;
-	private LookupService ls;
+	LookupService ls;
 
 	public BlockManager(IPCheck ipc) {
 		this.ipc = ipc;
 
 		if (ipc.getConfig().getBoolean("use-geoip-services")) {
 			this.isEnabled = true;
-			//this.ls = ipc.getGeoIPObject().getLookupService();
+			ls = ipc.getGeoIPObject().getLookupService();
 		}
 	}
 
