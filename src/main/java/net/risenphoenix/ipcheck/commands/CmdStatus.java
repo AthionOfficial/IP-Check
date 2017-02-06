@@ -40,7 +40,7 @@ public class CmdStatus extends Command {
 
         sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
                 getLocalString("STATS_LVER") + ChatColor.YELLOW +
-                stats.getLibraryVersion().get("VERSION"), false);
+                stats.getPluginVersion(), false);
 
         sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
                 getLocalString("STATS_DB_TYPE") + ChatColor.YELLOW +

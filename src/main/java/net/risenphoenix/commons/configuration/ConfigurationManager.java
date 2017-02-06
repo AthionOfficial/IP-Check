@@ -47,9 +47,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import net.risenphoenix.commons.stores.ConfigurationStore;
 import net.risenphoenix.commons.Plugin;
 import net.risenphoenix.commons.configuration.ConfigurationOption.ConfigOptionType;
+import net.risenphoenix.ipcheck.stores.ConfigurationStore;
 
 @SuppressWarnings("unchecked")
 public class ConfigurationManager {

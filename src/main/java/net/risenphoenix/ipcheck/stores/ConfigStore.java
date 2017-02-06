@@ -33,7 +33,6 @@ package net.risenphoenix.ipcheck.stores;
 import net.risenphoenix.commons.Plugin;
 import net.risenphoenix.commons.configuration.ConfigurationOption;
 import net.risenphoenix.commons.configuration.ConfigurationOption.ConfigOptionType;
-import net.risenphoenix.commons.stores.ConfigurationStore;
 
 public class ConfigStore extends ConfigurationStore {
 

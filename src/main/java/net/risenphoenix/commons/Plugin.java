@@ -1,7 +1,6 @@
 package net.risenphoenix.commons;
 
 import net.risenphoenix.commons.commands.*;
-import net.risenphoenix.commons.configuration.ConfigurationManager;
 import net.risenphoenix.ipcheck.LocalizationManager;
 import net.risenphoenix.ipcheck.commands.Command;
 import net.risenphoenix.ipcheck.commands.CommandManager;
@@ -33,8 +32,6 @@ public class Plugin extends JavaPlugin {
 
         // Must make direct call to Plugin configuration as Config-Manager is
         // not initialized at this point in the execution.
-        this.LM = new LocalizationManager(this, this.getConfig().getString("language"));
-        this.CM = new CommandManager(this);
         this.onStartup();
     }
 

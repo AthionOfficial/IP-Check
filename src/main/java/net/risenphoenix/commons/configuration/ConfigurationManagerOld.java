@@ -32,7 +32,7 @@ package net.risenphoenix.commons.configuration;
 
 import net.risenphoenix.commons.Plugin;
 import net.risenphoenix.commons.configuration.ConfigurationOption.ConfigOptionType;
-import net.risenphoenix.commons.stores.ConfigurationStore;
+import net.risenphoenix.ipcheck.stores.ConfigurationStore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
