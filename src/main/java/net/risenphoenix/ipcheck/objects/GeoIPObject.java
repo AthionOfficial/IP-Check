@@ -54,8 +54,7 @@ public class GeoIPObject {
 		try {
 			ls = new LookupService(database);
 		} catch (IOException e) {
-			ipc.getLogger().severe(
-					LM.getLocalString("GEOIP_DB_READ_ERR"));
+			ipc.getLogger().severe(LM.getLocalString("GEOIP_DB_READ_ERR"));
 		}
 	}
 
