@@ -50,8 +50,7 @@ public class IPCheck extends JavaPlugin implements Listener {
 	// Control used mainly in the event of an in-plugin Reload.
 	private boolean hasRegistered = false;
 
-	// Used for Development Purposes Only (hard disable for automatic updater)
-	private boolean isDevBuild = true;
+	private String vConfig = "3";
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLogin(PlayerLoginEvent e) {
@@ -63,6 +62,9 @@ public class IPCheck extends JavaPlugin implements Listener {
 
 		// Initialize Configuration
 		this.saveDefaultConfig();
+		if(!this.getConfig().getString("config-version").equalsIgnoreCase(vConfig)){
+			this.getLogger().severe("Config version mismatch. Make your config again!");
+		}
 
 		this.CM = new CommandManager(this);
 
@@ -112,25 +114,22 @@ public class IPCheck extends JavaPlugin implements Listener {
 		// Initialize Statistics
 		this.statsObject = new StatsObject(this);
 
-		// Development Build Hook
-		if (!this.isDevBuild) {
-			// Auto-Update Checker
-			if (!getConfig()
-					.getBoolean("disable-update-detection")) {
-				updater = new Updater(this, 55121, this.getFile(),
-						Updater.UpdateType.DEFAULT, false);
-			}
+		// Auto-Update Checker
+		if (!getConfig()
+				.getBoolean("disable-update-detection")) {
+			updater = new Updater(this, 55121, this.getFile(),
+					Updater.UpdateType.DEFAULT, false);
+		}
 
-			// Metrics Monitoring
-			if (!getConfig()
-					.getBoolean("disable-metrics-monitoring")) {
-				try {
-					metrics = new Metrics(this);
-					metrics.start();
-				} catch (IOException e) {
-					this.getLogger().severe(getLocalizationManager()
-							.getLocalString("METRICS_ERR"));
-				}
+		// Metrics Monitoring
+		if (!getConfig()
+				.getBoolean("disable-metrics-monitoring")) {
+			try {
+				metrics = new Metrics(this);
+				metrics.start();
+			} catch (IOException e) {
+				this.getLogger().severe(getLocalizationManager()
+						.getLocalString("METRICS_ERR"));
 			}
 		}
 

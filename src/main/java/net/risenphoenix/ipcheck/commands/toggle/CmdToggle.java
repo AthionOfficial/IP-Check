@@ -1,8 +1,8 @@
 package net.risenphoenix.ipcheck.commands.toggle;
 
-import net.risenphoenix.commons.commands.CommandType;
 import net.risenphoenix.ipcheck.IPCheck;
 import net.risenphoenix.ipcheck.commands.Command;
+import net.risenphoenix.ipcheck.commands.CommandType;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

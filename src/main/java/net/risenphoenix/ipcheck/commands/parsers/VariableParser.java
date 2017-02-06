@@ -28,11 +28,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package net.risenphoenix.commons.commands.parsers;
+package net.risenphoenix.ipcheck.commands.parsers;
 
-import net.risenphoenix.commons.commands.ComparisonResult;
 import net.risenphoenix.ipcheck.commands.Command;
 import net.risenphoenix.ipcheck.commands.CommandManager;
+import net.risenphoenix.ipcheck.commands.ComparisonResult;
 
 public class VariableParser extends Parser {
 

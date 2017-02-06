@@ -65,4 +65,4 @@ use-geoip-services: true
 allow-geoip-download: true
 
 # MC Hammer!
-config-version: 1
+config-version: 3

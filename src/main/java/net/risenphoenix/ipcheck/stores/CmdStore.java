@@ -1,6 +1,5 @@
 package net.risenphoenix.ipcheck.stores;
 
-import net.risenphoenix.commons.commands.CommandType;
 import net.risenphoenix.ipcheck.IPCheck;
 import net.risenphoenix.ipcheck.commands.*;
 import net.risenphoenix.ipcheck.commands.toggle.CmdToggle;

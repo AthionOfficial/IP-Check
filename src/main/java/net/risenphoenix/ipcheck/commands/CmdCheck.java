@@ -1,6 +1,5 @@
 package net.risenphoenix.ipcheck.commands;
 
-import net.risenphoenix.commons.commands.CommandType;
 import net.risenphoenix.ipcheck.IPCheck;
 import net.risenphoenix.ipcheck.objects.ReportObject;
 import org.bukkit.command.CommandSender;

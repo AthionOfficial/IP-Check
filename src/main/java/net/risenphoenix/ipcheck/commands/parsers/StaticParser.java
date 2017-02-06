@@ -28,32 +28,48 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package net.risenphoenix.commons.commands.parsers;
+package net.risenphoenix.ipcheck.commands.parsers;
 
-import net.risenphoenix.commons.commands.ComparisonResult;
 import net.risenphoenix.ipcheck.commands.Command;
 import net.risenphoenix.ipcheck.commands.CommandManager;
+import net.risenphoenix.ipcheck.commands.ComparisonResult;
 
-public class DynamicParser extends Parser {
+public class StaticParser extends Parser {
 
-    public DynamicParser(CommandManager mngr, Command cmd, String[] args) {
+    public StaticParser(CommandManager mngr, Command cmd, String[] args) {
         super(mngr, cmd, args);
     }
 
     @Override
     public ComparisonResult parseCommand() {
-        String[] COMMAND_ARGS = new String[this.cmd.getCallArgs().length];
-        String[] INPUT_ARGS = new String[this.cmd.getCallArgs().length];
+        int callSize = this.cmd.getCallArgs().length;
+        int inputSize = this.input.length;
+
+        String[] COMMAND_ARGS;
+        String[] INPUT_ARGS;
+
+        if (callSize > inputSize) {
+            COMMAND_ARGS = new String[callSize];
+            INPUT_ARGS = new String[callSize];
+        } else {
+            COMMAND_ARGS = new String[inputSize];
+            INPUT_ARGS = new String[inputSize];
+        }
 
         for (int i = 0; i < this.cmd.getCallArgs().length; i++) {
             COMMAND_ARGS[i] = this.cmd.getCallArgs()[i];
         }
+        for (int i = 0; i < this.input.length; i++) {
+            INPUT_ARGS[i] = this.input[i];
+        }
 
-        for (int i = 0; i < this.cmd.getCallArgs().length; i++) {
-            if (i >= this.input.length) {
+        if (callSize > inputSize) {
+            for (int i = inputSize; i < INPUT_ARGS.length; i++) {
                 INPUT_ARGS[i] = "null";
-            } else {
-                INPUT_ARGS[i] = this.input[i];
+            }
+        } else {
+            for (int i = callSize; i < COMMAND_ARGS.length; i++) {
+                COMMAND_ARGS[i] = "null";
             }
         }
 
@@ -65,13 +81,8 @@ public class DynamicParser extends Parser {
                 System.out.println("Received: " + INPUT_ARGS[i]);
             }
 
-            if (COMMAND_ARGS[i].equals("VAR_ARG_OPT")) continue;
-
-            if (COMMAND_ARGS[i].equals("VAR_ARG") &&
-                    INPUT_ARGS[i].equals("null")) {
+            if (COMMAND_ARGS[i].equals("null")) {
                 return ComparisonResult.ARG_ERR;
-            } else if (COMMAND_ARGS[i].equals("VAR_ARG")) {
-                continue;
             }
 
             if (!INPUT_ARGS[i].equalsIgnoreCase(COMMAND_ARGS[i])) {
@@ -81,4 +92,5 @@ public class DynamicParser extends Parser {
 
         return ComparisonResult.GOOD;
     }
+
 }

@@ -28,7 +28,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package net.risenphoenix.commons.commands;
+package net.risenphoenix.ipcheck.commands;
 
 public enum ComparisonResult {
     GOOD,

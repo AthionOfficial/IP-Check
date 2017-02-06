@@ -1,14 +1,10 @@
 package net.risenphoenix.ipcheck.commands;
 
-import net.risenphoenix.commons.commands.CommandType;
-import net.risenphoenix.commons.commands.ComparisonResult;
-import net.risenphoenix.commons.commands.ParseResult;
-import net.risenphoenix.commons.commands.ResultType;
-import net.risenphoenix.commons.commands.parsers.DynamicParser;
-import net.risenphoenix.commons.commands.parsers.Parser;
-import net.risenphoenix.commons.commands.parsers.StaticParser;
-import net.risenphoenix.commons.commands.parsers.VariableParser;
 import net.risenphoenix.ipcheck.IPCheck;
+import net.risenphoenix.ipcheck.commands.parsers.DynamicParser;
+import net.risenphoenix.ipcheck.commands.parsers.Parser;
+import net.risenphoenix.ipcheck.commands.parsers.StaticParser;
+import net.risenphoenix.ipcheck.commands.parsers.VariableParser;
 import net.risenphoenix.ipcheck.stores.CommandStore;
 
 import java.util.ArrayList;

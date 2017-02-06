@@ -28,32 +28,27 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package net.risenphoenix.commons.util;
+package net.risenphoenix.ipcheck.commands.parsers;
 
-public class MessageParser {
+import net.risenphoenix.ipcheck.commands.Command;
+import net.risenphoenix.ipcheck.commands.CommandManager;
+import net.risenphoenix.ipcheck.commands.ComparisonResult;
 
-    private String[] args;
-    private int startPos;
+public class Parser {
 
-    public MessageParser(String[] args, int startPos) {
-        this.args = args;
-        this.startPos = startPos;
+    public CommandManager cmdManager;
+    public Command cmd;
+    public String[] input;
+
+    public Parser(CommandManager mngr, Command cmd, String[] input) {
+        this.cmdManager =  mngr;
+        this.cmd = cmd;
+        this.input = input;
     }
 
-    public String parseMessage() {
-        String message = null;
-
-        if (args.length >= startPos) {
-            StringBuilder msgParse = new StringBuilder();
-
-            for (int i = startPos; i < args.length; i++) {
-                msgParse.append(args[i]);
-                if (!(i == (args.length - 1))) msgParse.append(" ");
-            }
-
-            message = msgParse.toString();
-        }
-
-        return message;
+    public ComparisonResult parseCommand(){
+        throw new UnsupportedOperationException(this.cmdManager.getPlugin()
+                .getLocalizationManager().getLocalString("BAD_PARSE_SET"));
     }
+
 }
