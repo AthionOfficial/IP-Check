@@ -59,7 +59,6 @@ public class IPCheck extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         this.CM = new CommandManager(this);
-        this.blockManager = new BlockManager(this);
 
         instance = this;
 
@@ -78,6 +77,8 @@ public class IPCheck extends JavaPlugin implements Listener {
         if (this.getConfig().getBoolean("use-geoip-services")) {
             this.geoIPOBject = new GeoIPObject(this);
         }
+        
+        this.blockManager = new BlockManager(this);
 
         // Initialize Database Controller
         if (this.getConfig().getBoolean("use-mysql")) {

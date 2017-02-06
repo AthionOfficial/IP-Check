@@ -24,7 +24,7 @@ public class GeoIPObject {
 		this.LM = ipc.getLocalizationManager();
 		this.CM = ipc.getConfig();
 
-		initializeDatabase();
+		this.initializeDatabase();
 	}
 
 	private void initializeDatabase() {
@@ -52,7 +52,7 @@ public class GeoIPObject {
 
 		// Attempt to initialize the Lookup Services
 		try {
-			ls = new LookupService(database);
+			this.ls = new LookupService(database);
 		} catch (IOException e) {
 			ipc.getLogger().severe(LM.getLocalString("GEOIP_DB_READ_ERR"));
 		}
