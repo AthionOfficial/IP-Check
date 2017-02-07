@@ -60,7 +60,7 @@ STATS_PVER: "IP-Check Version: "
 STATS_DB_TYPE: "Database Type: "
 STATS_PLOG: "Total Players Logged: "
 STATS_ILOG: "Total IPs Logged: "
-STATS_PLOGS: "Player Logins this Session: ";
+STATS_PLOGS: "Player Logins this Session: "
 STATS_WARNS: "Login Warnings this Session: "
 STATS_SECURE: "Secure Mode Status: "
 VER_COMP_ERR: "This version of IP-Check is not fully compatible with the version of Bukkit you are running. Please upgrade your Bukkit installation or downgrade IP-Check to v2.0.2."
