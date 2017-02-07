@@ -115,21 +115,21 @@ public class LocaleStore extends LocalizationStore {
                 "found:");
 
         this.add("REPORT_BODY_ONE","The following players " +
-                "connect with the above IP address:");
+                "connect with the above IP address: ");
         this.add("REPORT_BODY_TWO","The following players " +
-                "connect using the same IP address:");
+                "connect using the same IP address: ");
         this.add("REPORT_BODY_THREE","Players and IPs " +
-                "associated with the search term:");
+                "associated with the search term: ");
         this.add("REPORT_BODY_FOUR","No alternate accounts " +
                 "were found for this user.");
 
-        this.add("REPORT_FOOT_LAST_IP","Last Known IP:");
-        this.add("REPORT_FOOT_LOCATION","Last Location:");
+        this.add("REPORT_FOOT_LAST_IP","Last Known IP: ");
+        this.add("REPORT_FOOT_LOCATION","Last Location: ");
         this.add("LOCATION_UNAVAILABLE","GeoIP Services unavailable.");
 
-        this.add("REPORT_FOOT_PTIME", "Last Login:");
+        this.add("REPORT_FOOT_PTIME", "Last Login: ");
 
-        this.add("REPORT_FOOT_PREXM", "Will warn on Rejoin Attempt:");
+        this.add("REPORT_FOOT_PREXM", "Will warn on Rejoin Attempt: ");
 
         this.add("REPORT_FOOT_ERROR","Player object returned "+
                 "was NULL");
