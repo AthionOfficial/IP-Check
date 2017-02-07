@@ -31,7 +31,7 @@ public class LocalizationManager {
 				plugin.getLogger().warning("Translation Index " + langID + ".yml " + "could not be found. Falling back to Default Translation " + "(English).");
 			} else {
 				f.getParentFile().mkdirs();
-				copy(plugin.getResource("en"), f);
+				copy(plugin.getResource("en.yml"), f);
 			}
 		}
 
