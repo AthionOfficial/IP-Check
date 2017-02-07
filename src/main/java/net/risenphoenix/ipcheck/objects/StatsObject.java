@@ -9,6 +9,7 @@ public class StatsObject {
 
     // Stat Storage
     private int logPlayerSession;
+    private int warningIssuedSession;
 
     public StatsObject(final IPCheck ipc) {
         this.ipc = ipc;
@@ -45,9 +46,17 @@ public class StatsObject {
     public void logPlayerJoin(int count) {
         this.logPlayerSession += count;
     }
+    
+    public void logWarningIssue(int count) {
+        this.warningIssuedSession += count;
+    }
 
     public int getLogPlayerSession() {
         return logPlayerSession;
+    }
+    
+    public int getWarningIssuedSession() {
+        return warningIssuedSession;
     }
 
     public boolean getSecureStatus() {
