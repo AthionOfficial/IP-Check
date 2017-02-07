@@ -18,7 +18,6 @@ public class ReportObject {
 
     private IPCheck plugin;
     private DatabaseController db;
-    private FileConfiguration config;
     private LocalizationManager local;
 
     private ArrayList<StringBuilder> SBs;
@@ -31,7 +30,6 @@ public class ReportObject {
     public ReportObject(IPCheck ipCheck) {
         this.plugin = ipCheck;
         this.db = ipCheck.getDatabaseController();
-        this.config = ipCheck.getConfig();
         this.local = ipCheck.getLocalizationManager();
 
         this.SBs = new ArrayList<StringBuilder>();
@@ -48,20 +46,7 @@ public class ReportObject {
 
         // Fetch Offline Player for use with the Database
         if (forPlayer) {
-            this.player = Bukkit.getOfflinePlayer(arg);
-
-            // Ban State Updater to keep Ban Records up-to-date.
-            if (player.isBanned()) {
-                // To prevent re-banning and to preserve ban messages.
-                if (!db.getUserObject(arg).getBannedStatus()) {
-                    db.banPlayer(player.getName(),
-                            config.getString("ban-message"));
-                }
-            } else {
-                if (db.getUserObject(arg).getBannedStatus()) {
-                    db.unbanPlayer(player.getName());
-                }
-            }
+            this.player = plugin.getServer().getOfflinePlayer(arg);
 
             FetchResult fResult = this.fetchPlayerData(arg);
 
@@ -229,47 +214,6 @@ public class ReportObject {
                         this.local.getLocalString("REPORT_FOOT_PTIME") +
                         lastLog, false);
 
-                this.plugin.sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                        "------------------------------------------------",
-                        false);
-
-                // Display Ban Status
-                String banStatus = (this.db.isBannedPlayer(player.getName())) ?
-                        ChatColor.RED + " True" : ChatColor.GREEN + " False";
-
-                this.plugin.sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                        this.local.getLocalString("REPORT_FOOT_PBAN") +
-                        banStatus, false);
-
-                // Display Exemption Status
-                String exmStatus = (this.db.isExemptPlayer(player.getName())) ?
-                        ChatColor.GREEN + " True" : ChatColor.RED + " False";
-
-                this.plugin.sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                        this.local.getLocalString("REPORT_FOOT_PEXM") +
-                        exmStatus, false);
-
-                // Display Protection Status
-                String proStatus = (db.isProtectedPlayer(player.getName())) ?
-                        ChatColor.GREEN + " True" : ChatColor.RED + " False";
-
-                this.plugin.sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                        this.local.getLocalString("REPORT_FOOT_PPRO") +
-                        proStatus, false);
-
-                // Display Rejoin Exemption Status
-                String exmRejoinStatus = (this.db.isRejoinExemptPlayer(arg)) ?
-                         ChatColor.RED + " False" : ChatColor.GREEN + " True";
-
-                if (db.isBannedPlayer(player.getName())) {
-                    this.plugin.sendPlayerMessage(sender, ChatColor.DARK_GRAY +
-                            "------------------------------------------------",
-                            false);
-                    this.plugin.sendPlayerMessage(sender,
-                            ChatColor.LIGHT_PURPLE + this.local
-                            .getLocalString("REPORT_FOOT_PREXM") +
-                            exmRejoinStatus, false);
-                }
             } else {
                 this.plugin.sendPlayerMessage(sender, ChatColor.RED +
                         "ERROR: " + ChatColor.GOLD +
@@ -286,51 +230,6 @@ public class ReportObject {
             this.plugin.sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
                     this.local.getLocalString("REPORT_FOOT_LOCATION") +
                     country, false);
-
-            // Display Ban Status
-            String banStatus = (this.db.isBannedIP(arg)) ?
-                    ChatColor.RED + " True" : ChatColor.GREEN + " False";
-
-            this.plugin.sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                    this.local.getLocalString("REPORT_FOOT_IBAN") +
-                    banStatus, false);
-
-            // Display Exemption Status
-            String exmStatus = (this.db.isExemptIP(arg)) ?
-                    ChatColor.GREEN + " True" : ChatColor.RED + " False";
-
-            this.plugin.sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                    this.local.getLocalString("REPORT_FOOT_IEXM") +
-                    exmStatus, false);
-
-            // Display Rejoin Exemption Status
-            String rexmStatus = (!this.db.isRejoinExemptIP(arg)) ?
-                    ChatColor.GREEN + " True" : ChatColor.RED + " False";
-
-            this.plugin.sendPlayerMessage(sender, ChatColor.LIGHT_PURPLE +
-                    this.local.getLocalString("REPORT_FOOT_IREXM") +
-                    rexmStatus, false);
-        }
-
-        // Display Ban Message if one Exists
-        if (forPlayer) {
-            if (sender.hasPermission("ipcheck.showbanreason") || sender.isOp()) {
-                if (player != null) {
-                    if (this.db.isBannedPlayer(arg)) {
-                        String banMsg = this.db.getBanMessage(player.getName());
-
-                        if (banMsg == null || banMsg.length() <= 0) {
-                            banMsg = this.local
-                                    .getLocalString("REPORT_BAN_GENERIC");
-                        }
-
-                        this.plugin.sendPlayerMessage(sender,
-                                ChatColor.LIGHT_PURPLE +
-                                        this.local.getLocalString("REPORT_BAN_HEAD") +
-                                        " " + ChatColor.YELLOW + banMsg, false);
-                    }
-                }
-            }
         }
 
         // End Report Output
