@@ -6,6 +6,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import net.risenphoenix.ipcheck.stores.LocalizationStore;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,20 +20,37 @@ public class LocalizationManager {
 	private FileConfiguration loadedLanguage;
 
 	public LocalizationManager(final IPCheck plugin, String langID) {
-		File f = new File(plugin.getDataFolder() + File.separator + langID +
-				".yml");
+		File f = new File(plugin.getDataFolder() + File.separator + langID +".yml");
 
 		if (f.exists()) {
 			this.selectedLanguage = langID;
 		} else {
 			this.selectedLanguage = "en";
-			if (!langID.equalsIgnoreCase("en")){ 
+			if(!langID.equalsIgnoreCase("en")){ 
 				loadDefaultTranslation();
 				plugin.getLogger().warning("Translation Index " + langID + ".yml " + "could not be found. Falling back to Default Translation " + "(English).");
+			} else {
+				f.getParentFile().mkdirs();
+				copy(plugin.getResource("en"), f);
 			}
 		}
 
 		loadTranslation(f);
+	}
+
+	private void copy(InputStream in, File file) {
+		try {
+			OutputStream out = new FileOutputStream(file);
+			byte[] buf = new byte[1024];
+			int len;
+			while((len=in.read(buf))>0){
+				out.write(buf,0,len);
+			}
+			out.close();
+			in.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private final void loadTranslation(File path) {

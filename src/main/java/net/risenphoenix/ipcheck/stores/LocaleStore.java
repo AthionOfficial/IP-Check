@@ -90,7 +90,7 @@ public class LocaleStore extends LocalizationStore {
         // Other Messages
         this.add("SCAN_TITLE","Player Scan Results");
         this.add("SCAN_EXPLAIN","The following players were " +
-                "found to have multiple accounts:");
+                "found to have multiple accounts: ");
         this.add("LOGIN_WARN","Warning!");
         this.add("LOGIN_EXPLAIN"," may have multiple " +
                 "accounts!");
@@ -110,9 +110,9 @@ public class LocaleStore extends LocalizationStore {
 
         // Report Messages
         this.add("REPORT_HEAD_ONE","Alternate Accounts found "+
-                "for:");
+                "for: ");
         this.add("REPORT_HEAD_TWO","Alternate Accounts " +
-                "found:");
+                "found: ");
 
         this.add("REPORT_BODY_ONE","The following players " +
                 "connect with the above IP address: ");
@@ -148,14 +148,14 @@ public class LocaleStore extends LocalizationStore {
         this.add("GEOIP_DISABLED", "GeoIP Services have been disabled via configuration.");
 
         // Stats Messages
-        this.add("STATS_HEADER", "Plugin Usage Statistics:");
-        this.add("STATS_PVER", "IP-Check Version:");
-        this.add("STATS_DB_TYPE", "Database Type:");
-        this.add("STATS_PLOG", "Total Players Logged:");
-        this.add("STATS_ILOG", "Total IPs Logged:");
-        this.add("STATS_PLOGS", "Player Logins this Session:");;
-        this.add("STATS_WARNS", "Login Warnings this Session:");
-        this.add("STATS_SECURE", "Secure Mode Status:");
+        this.add("STATS_HEADER", "Plugin Usage Statistics: ");
+        this.add("STATS_PVER", "IP-Check Version: ");
+        this.add("STATS_DB_TYPE", "Database Type: ");
+        this.add("STATS_PLOG", "Total Players Logged: ");
+        this.add("STATS_ILOG", "Total IPs Logged: ");
+        this.add("STATS_PLOGS", "Player Logins this Session: ");;
+        this.add("STATS_WARNS", "Login Warnings this Session: ");
+        this.add("STATS_SECURE", "Secure Mode Status: ");
 
         this.add("VER_COMP_ERR", "This version of IP-Check is not fully " +
                 "compatible with the version of Bukkit you are running. " +
