@@ -39,25 +39,9 @@ public class CmdToggle extends Command {
                 new String[]{"secure-mode", "secure", "sm"})
         );
 
-        options.add( // Active Mode
-            new ToggleOption(getPlugin(), "active-mode", "TOGGLE_ACTIVE",
-                new String[]{"active-mode", "active", "am"})
-        );
-
-        options.add( // Country Black-List
-            new ToggleOption(getPlugin(), "use-country-blacklist",
-                "TOGGLE_BLACKLIST", new String[]{"country-block", "black-list",
-                    "cb"})
-        );
-
         options.add( // GeoIP Services
             new ToggleOption(getPlugin(), "use-geoip-services", "TOGGLE_GEOIP",
                 new String[]{"geoip-services", "geoip", "gs"})
-        );
-
-        options.add( // Rejoin Attempt
-            new ToggleOption(getPlugin(), "warn-on-rejoin-attempt",
-                "TOGGLE_REJOIN", new String[]{"rejoin-attempt", "rejoin", "ra"})
         );
 
         // Command Initialization

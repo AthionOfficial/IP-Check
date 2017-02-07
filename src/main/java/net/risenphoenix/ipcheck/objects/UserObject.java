@@ -36,25 +36,14 @@ public class UserObject {
 
     private String User;
     private ArrayList<String> IPs;
-    private boolean isBanned;
-    private boolean isExempt;
-    private boolean isRejoinExempt;
-    private boolean isProtected;
 
-    public UserObject(String User, ArrayList<String> IPs, boolean isBanned,
-                      boolean isExempt, boolean isRejoinExempt,
-                      boolean isProtected) {
+    public UserObject(String User, ArrayList<String> IPs) {
         this.User = User;
         this.IPs = IPs;
-        this.isBanned = isBanned;
-        this.isExempt = isExempt;
-        this.isRejoinExempt = isRejoinExempt;
-        this.isProtected = isProtected;
     }
 
-    public UserObject(String user, boolean isBanned) {
+    public UserObject(String user) {
         this.User = user;
-        this.isBanned = isBanned;
     }
 
     public final String getUser() {
@@ -67,21 +56,5 @@ public class UserObject {
 
     public final int getNumberOfIPs() {
         return this.IPs.size();
-    }
-
-    public final boolean getBannedStatus() {
-        return this.isBanned;
-    }
-
-    public final boolean getExemptStatus() {
-        return this.isExempt;
-    }
-
-    public boolean getRejoinExemptStatus() {
-        return isRejoinExempt;
-    }
-
-    public boolean getProtectedStatus() {
-        return isProtected;
     }
 }

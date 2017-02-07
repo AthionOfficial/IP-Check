@@ -15,10 +15,8 @@ public class LocalizationManager {
 	private Map<String, String> defaultTranslation;
 	private String selectedLanguage;
 	private FileConfiguration loadedLanguage;
-	private IPCheck plugin;
 
 	public LocalizationManager(final IPCheck plugin, String langID) {
-		this.plugin = plugin;
 		File f = new File(plugin.getDataFolder() + File.separator + langID +
 				".yml");
 
