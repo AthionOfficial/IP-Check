@@ -1,5 +1,6 @@
 package net.risenphoenix.ipcheck;
 
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -7,6 +8,7 @@ import net.risenphoenix.ipcheck.stores.LocalizationStore;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -18,9 +20,12 @@ public class LocalizationManager {
 	private Map<String, String> defaultTranslation;
 	private String selectedLanguage;
 	private FileConfiguration loadedLanguage;
-
+	File f;
+	FileConfiguration fC;
+	
 	public LocalizationManager(final IPCheck plugin, String langID) {
-		File f = new File(plugin.getDataFolder() + File.separator + langID +".yml");
+		f = new File(plugin.getDataFolder(), langID +".yml");
+		fC = new YamlConfiguration();
 
 		if (f.exists()) {
 			this.selectedLanguage = langID;
@@ -32,6 +37,11 @@ public class LocalizationManager {
 			} else {
 				f.getParentFile().mkdirs();
 				copy(plugin.getResource("en.yml"), f);
+				try {
+					fC.load(f);
+				} catch (IOException | InvalidConfigurationException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
