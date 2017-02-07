@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DatabaseController extends DatabaseManager {
 
 	// SQ-Lite Initializer
-	public DatabaseController(final IPCheck ipCheck) {
+	public DatabaseController(IPCheck ipCheck) {
 		super(ipCheck, "ip-check");
 
 		// Enable Debugging to allow us to view the dynamic SQL queries
@@ -21,7 +21,7 @@ public class DatabaseController extends DatabaseManager {
 	}
 
 	// MySQL Initializer
-	public DatabaseController(final IPCheck plugin, String hostname, int port,
+	public DatabaseController(IPCheck plugin, String hostname, int port,
 			String database, String username, String pwd) {
 		super(plugin, hostname, port, database, username, pwd);
 
