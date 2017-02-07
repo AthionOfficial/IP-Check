@@ -39,8 +39,6 @@ public class LoginNotification {
 		// If the player has more accounts than the set threshold
 		if (acctNum > threshold) {
 
-			// If the player and their IP are both non-exempt
-
 			// Stats Link
 			ipc.getStatisticsObject().logWarningIssue(1);
 
@@ -95,5 +93,4 @@ public class LoginNotification {
 			}
 		}
 	}
-
 }

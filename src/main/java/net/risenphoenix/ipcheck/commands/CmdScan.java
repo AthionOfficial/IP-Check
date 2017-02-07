@@ -36,8 +36,7 @@ public class CmdScan extends Command {
             ArrayList<String> unique_names = new ArrayList<String>();
 
             // Fetch User Object for this player
-            UserObject user = plugin.getDatabaseController()
-                    .getUserObject(p.getName());
+            UserObject user = plugin.getDatabaseController().getUserObject(p.getName());
 
             // If no IPs were found for this user, skip them and continue
             if (user.getNumberOfIPs() == 0) continue;

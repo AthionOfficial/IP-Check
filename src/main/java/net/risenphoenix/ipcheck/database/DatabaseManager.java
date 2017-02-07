@@ -20,7 +20,6 @@ public class DatabaseManager {
 	private String database = null;
 	private String username = null;
 	private String password = null;
-	private int poolSize = 1;
 
 	// SQLite
 	private String dbName = null;
@@ -46,8 +45,7 @@ public class DatabaseManager {
 
 	// MySQL Constructor
 	public DatabaseManager(final IPCheck plugin, String hostname, int port,
-			String database, String username, String pwd,
-			int poolSize) {
+			String database, String username, String pwd) {
 		this.plugin = plugin;
 
 		// Value Assignment
@@ -56,19 +54,7 @@ public class DatabaseManager {
 		this.database = database;
 		this.username = username;
 		this.password = pwd;
-		this.poolSize = poolSize;
-
-		// Connection Creation (Pooled)
-		if (poolSize > 1) {
-			this.connection = new DatabaseConnection(plugin, hostname, port,
-					database, username, pwd, poolSize);
-			plugin.getLogger().info("Pooled MySQL Connection Created");
-			// Connection Creation (Non-pooled)
-		} else {
-			this.connection = new DatabaseConnection(plugin, hostname, port,
-					database, username, pwd);
-			plugin.getLogger().info("Non-Pooled MySQL Connection Created");
-		}
+		this.connection = new DatabaseConnection(plugin, hostname, port, database, username, pwd);
 		this.type = DatabaseType.MYSQL;
 	}
 

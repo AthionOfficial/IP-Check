@@ -18,13 +18,11 @@ import java.util.ArrayList;
 public class PlayerLoginListener {
 
 	private IPCheck ipc;
-	private FileConfiguration config;
 	private DatabaseController db;
 	private PlayerLoginEvent e;
 
 	public PlayerLoginListener(IPCheck ipc, PlayerLoginEvent e) {
 		this.ipc = ipc;
-		this.config = ipc.getConfig();
 		this.db = ipc.getDatabaseController();
 		this.e = e;
 
@@ -52,35 +50,23 @@ public class PlayerLoginListener {
 		boolean shouldCheck = true;
 
 		// Attempt a Secure-Kick if Secure-Mode is enabled
-		if (config.getBoolean("secure-mode")) {
+		if (ipc.getConfig().getBoolean("secure-mode")) {
 			shouldCheck = this.secureKick(e, address);
 		}
 
-		// Special Check for Me! :D
-		if (player.getName().equals("Jnk1296") && !player.hasPlayedBefore()) {
-			ipc.sendPlayerMessage(player, "Daddy! :D");
-			ActionBroadcast ab = new ActionBroadcast("Daddy! :D",
-					new Permission[]{new Permission("ipcheck.getnotify")},
-					true);
-
-			ab.execute();
-		}
-
 		// Perform a Login Notification
-		if (config.getBoolean("notify-on-login") && shouldCheck) {
-			if (!player.isOp() && !player.hasPermission("ipcheck.getnotify")) {
-				IPObject ipo = db.getIPObject(address);
-				ArrayList<String> names = new ArrayList<String>();
+		if (ipc.getConfig().getBoolean("notify-on-login") && shouldCheck) {
+			IPObject ipo = db.getIPObject(address);
+			ArrayList<String> names = new ArrayList<String>();
 
-				for (String s : ipo.getUsers()) {
-					if (!names.contains(s.toLowerCase())) {
-						names.add(s.toLowerCase());
-					}
+			for (String s : ipo.getUsers()) {
+				if (!names.contains(s.toLowerCase())) {
+					names.add(s.toLowerCase());
 				}
-
-				// Execute Login Notification
-				new LoginNotification(ipc, player, address, names);
 			}
+
+			// Execute Login Notification
+			new LoginNotification(ipc, player, address, names);
 		}
 
 	}
@@ -90,7 +76,7 @@ public class PlayerLoginListener {
 		String player = e.getPlayer().getName();
 		ArrayList<String> names = this.getUniqueAccounts(player);
 
-		int threshold = config.getInt("secure-kick-threshold");
+		int threshold = ipc.getConfig().getInt("secure-kick-threshold");
 
 		// If the number of accounts is greater than the threshold, and the
 		// player-name and IP are both non-exempt, then check if the account
@@ -128,7 +114,7 @@ public class PlayerLoginListener {
 
 			if (shouldKick) {
 				// If IPC should ban when performing a Secure-Mode Kick
-				e.setKickMessage(config.getString("secure-kick-message"));
+				e.setKickMessage(ipc.getConfig().getString("secure-kick-message"));
 
 				// Kick Player
 				e.setResult(Result.KICK_OTHER);

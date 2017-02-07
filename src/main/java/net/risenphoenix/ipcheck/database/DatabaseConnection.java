@@ -1,6 +1,5 @@
 package net.risenphoenix.ipcheck.database;
 
-import java.beans.PropertyVetoException;
 import java.io.File;
 import java.sql.*;
 import com.mchange.v2.c3p0.*;
@@ -48,32 +47,6 @@ public class DatabaseConnection {
                 database + "?user=" + username + "&password=" + pwd;
         this.openConnection();
     }
-
-    // MySQL (Pooled) Connection Initializer
-    public DatabaseConnection(IPCheck plugin2, String hostname, int port,
-                              String database, String username, String pwd, int
-                              poolSize) {
-        this.plugin = plugin2;
-
-        driver = "com.mysql.jdbc.Driver";
-        connectionString = "jdbc:mysql://" + hostname + ":" + port + "/" +
-                database;
-
-        pooledDataSource = new ComboPooledDataSource();
-
-        try {
-            pooledDataSource.setDriverClass(driver);
-        } catch (PropertyVetoException e) {
-            e.printStackTrace();
-        }
-
-        pooledDataSource.setJdbcUrl(connectionString);
-        pooledDataSource.setUser(username);
-        pooledDataSource.setPassword(pwd);
-        pooledDataSource.setMaxPoolSize(poolSize);
-    }
-
-
 
     public Connection openConnection() {
         try {

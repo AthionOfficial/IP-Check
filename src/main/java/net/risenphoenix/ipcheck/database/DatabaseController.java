@@ -16,26 +16,24 @@ public class DatabaseController extends DatabaseManager {
 
 		// Enable Debugging to allow us to view the dynamic SQL queries
 		//this.enableDebug(true);
-		this.dropTables(); // Attempt Table Drop
+		this.dropTables(ipCheck); // Attempt Table Drop
 		this.initializeSQLiteTables();
 	}
 
 	// MySQL Initializer
 	public DatabaseController(final IPCheck plugin, String hostname, int port,
-			String database, String username, String pwd
-			/* int poolSize */) {
-		super(plugin, hostname, port, database, username, pwd, 0);
+			String database, String username, String pwd) {
+		super(plugin, hostname, port, database, username, pwd);
 
 
 		// Enable Debugging to allow us to view the dynamic SQL queries
 		//this.enableDebug(true);
-		this.dropTables(); // Attempt Table Drop
+		this.dropTables(plugin); // Attempt Table Drop
 		this.initializeMySQLTables(); // Initialize Tables
-		plugin.getLogger().info("MySql Database Used");
 	}
 
-	private void dropTables() {
-		if (!getPlugin().getConfig().getBoolean("dbGenerated")) {
+	private void dropTables(IPCheck plugin) {
+		if (!plugin.getConfig().getBoolean("dbGenerated")) {
 			// SQL Strings
 			String SQL_0 = "DROP TABLE IF EXISTS ipcheck_log;";
 			String SQL_1 = "DROP TABLE IF EXISTS ipcheck_user;";
@@ -47,7 +45,7 @@ public class DatabaseController extends DatabaseManager {
 			executeStatement(new StatementObject(getPlugin(), SQL_2));
 
 			// Save Configuration Option
-			getPlugin().getConfig().set("dbGenerated", true);
+			plugin.getConfig().set("dbGenerated", true);
 		}
 	}
 

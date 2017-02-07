@@ -6,12 +6,9 @@ import net.risenphoenix.ipcheck.database.DatabaseController;
 import net.risenphoenix.ipcheck.util.FormatFilter;
 import net.risenphoenix.ipcheck.util.ListFormatter;
 import net.risenphoenix.ipcheck.util.TimeCalculator;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-
 import java.util.ArrayList;
 
 public class ReportObject {
