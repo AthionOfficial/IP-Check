@@ -163,7 +163,7 @@ public class IPCheck extends JavaPlugin implements Listener {
 	}
 
 	public String getVersion() {
-		return "3-SNAPSHOT";
+		return "3.0-RELEASE";
 	}
 
 	public int getBuildNumber() {
