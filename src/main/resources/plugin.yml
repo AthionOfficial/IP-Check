@@ -1,6 +1,6 @@
 name: IP-Check
 main: net.risenphoenix.ipcheck.IPCheck
-version: 3.0-RELEASE
+version: 3.0
 loadbefore: [AuthMe, xAuth, LoginSecurity, vAuth]
 commands:
    ipc:
