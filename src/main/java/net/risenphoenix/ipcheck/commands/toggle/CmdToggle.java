@@ -6,20 +6,17 @@ import net.risenphoenix.ipcheck.commands.CommandType;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.permissions.Permission;
 
 import java.util.ArrayList;
 
 public class CmdToggle extends Command {
 
-    private FileConfiguration config;
     private static ArrayList<ToggleOption> options;
 
     public CmdToggle(final IPCheck plugin, String[] callArgs, CommandType type) {
         super(plugin, callArgs, type);
 
-        this.config = getPlugin().getConfig();
         CmdToggle.options = new ArrayList<ToggleOption>();
 
         /* Options Initialization */

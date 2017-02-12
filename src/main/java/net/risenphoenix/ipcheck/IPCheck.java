@@ -35,8 +35,7 @@ public class IPCheck extends JavaPlugin implements Listener {
 	private static IPCheck instance;
 	private DatabaseController dbController;
 
-	// Updater and Metrics Objects
-	private Updater updater;
+	// Metrics Objects
 	private Metrics metrics;
 
 	// Statistics Object
@@ -117,8 +116,7 @@ public class IPCheck extends JavaPlugin implements Listener {
 		// Auto-Update Checker
 		if (!getConfig()
 				.getBoolean("disable-update-detection")) {
-			updater = new Updater(this, 55121, this.getFile(),
-					Updater.UpdateType.DEFAULT, false);
+			new Updater(this, 55121, this.getFile(), Updater.UpdateType.DEFAULT, false);
 		}
 
 		// Metrics Monitoring

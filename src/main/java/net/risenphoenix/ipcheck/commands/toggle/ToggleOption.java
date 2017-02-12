@@ -11,12 +11,6 @@ public class ToggleOption {
     private String displayID;
     private String[] callValues;
 
-    /**
-     * @param ipCheck Plugin Instance
-     * @param optionID Option ID in Plugin Configuration
-     * @param displayID Display ID stored in Localization Store
-     * @param callValues Call ID references for Toggle Command
-     */
     public ToggleOption(IPCheck ipCheck, String optionID, String displayID,
                         String[] callValues) {
         this.plugin = ipCheck;
