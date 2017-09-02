@@ -21,8 +21,7 @@ public class DatabaseController extends DatabaseManager {
 	}
 
 	// MySQL Initializer
-	public DatabaseController(IPCheck plugin, String hostname, int port,
-			String database, String username, String pwd) {
+	public DatabaseController(IPCheck plugin, String hostname, int port, String database, String username, String pwd) {
 		super(plugin, hostname, port, database, username, pwd);
 
 

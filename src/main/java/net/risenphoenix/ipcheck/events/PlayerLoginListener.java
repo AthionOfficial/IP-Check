@@ -6,6 +6,7 @@ import net.risenphoenix.ipcheck.objects.DateObject;
 import net.risenphoenix.ipcheck.objects.IPObject;
 import net.risenphoenix.ipcheck.objects.UserObject;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
@@ -26,44 +27,50 @@ public class PlayerLoginListener {
 	}
 
 	public void execute() {
-		// Fetch IP Address and Player
-		Player player = e.getPlayer();
-		String address = e.getAddress().getHostAddress();
+		Bukkit.getScheduler().runTaskAsynchronously(ipc, new Runnable(){
 
-		boolean debugAddress = false;
+			@Override
+			public void run(){
+				// Fetch IP Address and Player
+				Player player = e.getPlayer();
+				String address = e.getAddress().getHostAddress();
 
-		if (debugAddress)
-			ipc.getLogger().info("Address Output: " + address);
+				boolean debugAddress = false;
 
-		// Log Player and IP
-		db.log(player.getName(), address);
+				if (debugAddress)
+					ipc.getLogger().info("Address Output: " + address);
 
-		// Stats Link
-		ipc.getStatisticsObject().logPlayerJoin(1);
+				// Log Player and IP
+				db.log(player.getName(), address);
 
-		// If the player was not kicked for having a banned status or a blocked
-		// country, check for alt accounts with the database. (Secure Mode Hook)
-		boolean shouldCheck = true;
+				// Stats Link
+				ipc.getStatisticsObject().logPlayerJoin(1);
 
-		// Attempt a Secure-Kick if Secure-Mode is enabled
-		if (ipc.getConfig().getBoolean("secure-mode")) {
-			shouldCheck = this.secureKick(e, address);
-		}
+				// If the player was not kicked for having a banned status or a blocked
+				// country, check for alt accounts with the database. (Secure Mode Hook)
+				boolean shouldCheck = true;
 
-		// Perform a Login Notification
-		if (ipc.getConfig().getBoolean("notify-on-login") && shouldCheck) {
-			IPObject ipo = db.getIPObject(address);
-			ArrayList<String> names = new ArrayList<String>();
+				// Attempt a Secure-Kick if Secure-Mode is enabled
+				if (ipc.getConfig().getBoolean("secure-mode")) {
+					shouldCheck = secureKick(e, address);
+				}
 
-			for (String s : ipo.getUsers()) {
-				if (!names.contains(s.toLowerCase())) {
-					names.add(s.toLowerCase());
+				// Perform a Login Notification
+				if (ipc.getConfig().getBoolean("notify-on-login") && shouldCheck) {
+					IPObject ipo = db.getIPObject(address);
+					ArrayList<String> names = new ArrayList<String>();
+
+					for (String s : ipo.getUsers()) {
+						if (!names.contains(s.toLowerCase())) {
+							names.add(s.toLowerCase());
+						}
+					}
+
+					// Execute Login Notification
+					new LoginNotification(ipc, player, address, names);
 				}
 			}
-
-			// Execute Login Notification
-			new LoginNotification(ipc, player, address, names);
-		}
+		});
 
 	}
 
